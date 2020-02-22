@@ -16,6 +16,22 @@ BLOCKS.LINE("A package to easily create good looking blocks in your CLI");
 BLOCKS.END_BLOCK();
 ```
 
+## Installation
+
+Install from npm
+
+```bash
+npm i cli-block
+```
+
+And use it in your js file;
+
+```js
+const BLOCKS = require("../index.js");
+
+BLOCKS.START("CLI Blocks");
+```
+
 ## Available blocks
 
 #### START
