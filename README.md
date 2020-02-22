@@ -58,11 +58,15 @@ A basic line, can be used for empty lines or just basic text
 
 #### ROW_LINE
 
+Takes an array and automatically spaces the values over a line. Can be used to create "tables"
+
 ```bash
   ┃     Atomatic     Spaced      Text       ┃
 ```
 
 #### ERROR_LINE
+
+Automatically adds a red x for the line
 
 ```bash
   ┃     × Something went wrong              ┃
@@ -70,11 +74,15 @@ A basic line, can be used for empty lines or just basic text
 
 #### SUCCES_LINE
 
+Automatically adds a green check for the line
+
 ```bash
   ┃     ✔ This is right                     ┃
 ```
 
 #### WARNING_LINE
+
+Automatically adds a yellow warning sign for the line
 
 ```bash
   ┃     ! A warning message                 ┃
@@ -82,17 +90,31 @@ A basic line, can be used for empty lines or just basic text
 
 #### END_BLOCK
 
+The end of a block
+
 ```bash
   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
 #### EMPTY
 
+Just an empty line.
+
 ```bash
 
 ```
 
-Sometimes you just need some space.
+#### SETTINGS_BLOCK
+
+Take an object and shows its values. Can be used for easily showwing your settings in an object.
+
+```bash
+  ┃     src           /path/to/files        ┃
+  ┃     dest          /path/to/dir          ┃
+  ┃     type          json                  ┃
+  ┃     multi         false                 ┃
+  ┃     multi         false                 ┃
+```
 
 ### Functions
 
