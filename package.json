@@ -1,0 +1,29 @@
+{
+	"name": "cli-block",
+	"version": "1.0.0",
+	"description": "Create nice looking CLI Blocks",
+	"main": "index.js",
+	"scripts": {
+		"test": "node test/test.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/silvandiepen/cli-block.git"
+	},
+	"keywords": [
+		"Cli",
+		"Block",
+		"Logging"
+	],
+	"author": "Sil van Diepen",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/silvandiepen/cli-block/issues"
+	},
+	"homepage": "https://github.com/silvandiepen/cli-block#readme",
+	"dependencies": {
+		"kleur": "^3.0.3",
+		"mono-str-width": "^1.0.0",
+		"window-size": "^1.1.1"
+	}
+}
