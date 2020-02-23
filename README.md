@@ -5,15 +5,15 @@ Create good looking blocks in your CLI
 ![intro](https://i.ibb.co/9v2bx1N/Screenshot-2020-02-22-at-11-34-29.png)
 
 ```js
-const BLOCKS = require("../index.js");
+const log = require("../index.js");
 
-BLOCKS.START("CLI Blocks");
-BLOCKS.START_BLOCK("Let's go");
-BLOCKS.LINE();
-BLOCKS.LINE("So, this is CLI Blocks");
-BLOCKS.LINE();
-BLOCKS.LINE("A package to easily create good looking blocks in your CLI");
-BLOCKS.END_BLOCK();
+log.START("CLI Blocks");
+log.BLOCK_START("Let's go");
+log.BLOCK_LINE();
+log.BLOCK_LINE("So, this is CLI Blocks");
+log.BLOCK_LINE();
+log.BLOCK_LINE("A package to easily create good looking blocks in your CLI");
+log.BLOCK_END();
 ```
 
 ## Installation
@@ -27,16 +27,16 @@ npm i cli-block
 And use it in your js file;
 
 ```js
-const BLOCKS = require("../index.js");
+const log = require("../index.js");
 
-BLOCKS.START("CLI Blocks");
+log.START("CLI Blocks");
 ```
 
 ## Available blocks
 
 #### START
 
-#### START_BLOCK
+#### BLOCK_START
 
 The start block, can have a title or just start a new block.
 
@@ -48,7 +48,7 @@ The start block, can have a title or just start a new block.
   ┏━━━━━━━━━━━━━━    Title    ━━━━━━━━━━━━━━┓
 ```
 
-#### MID_BLOCK
+#### BLOCK_MID
 
 A break in between blocks. Can have a title.
 
@@ -60,7 +60,7 @@ A break in between blocks. Can have a title.
   ┠──────────────    Title    ──────────────┨
 ```
 
-#### LINE
+#### BLOCK_LINE
 
 A basic line, can be used for empty lines or just basic text
 
@@ -72,7 +72,7 @@ A basic line, can be used for empty lines or just basic text
   ┃     Some text                           ┃
 ```
 
-#### ROW_LINE
+#### BLOCK_ROW_LINE
 
 Takes an array and automatically spaces the values over a line. Can be used to create "tables"
 
@@ -80,7 +80,7 @@ Takes an array and automatically spaces the values over a line. Can be used to c
   ┃     Atomatic     Spaced      Text       ┃
 ```
 
-#### ERROR_LINE
+#### BLOCK_ERROR_LINE
 
 Automatically adds a red x for the line
 
@@ -88,7 +88,7 @@ Automatically adds a red x for the line
   ┃     × Something went wrong              ┃
 ```
 
-#### SUCCES_LINE
+#### BLOCK_SUCCES_LINE
 
 Automatically adds a green check for the line
 
@@ -96,7 +96,7 @@ Automatically adds a green check for the line
   ┃     ✔ This is right                     ┃
 ```
 
-#### WARNING_LINE
+#### BLOCK_WARNING_LINE
 
 Automatically adds a yellow warning sign for the line
 
@@ -104,7 +104,7 @@ Automatically adds a yellow warning sign for the line
   ┃     ! A warning message                 ┃
 ```
 
-#### END_BLOCK
+#### BLOCK_END
 
 The end of a block
 
@@ -120,7 +120,7 @@ Just an empty line.
 
 ```
 
-#### SETTINGS_BLOCK
+#### BLOCK_SETTINGS
 
 Take an object and shows its values. Can be used for easily showwing your settings in an object.
 
@@ -131,6 +131,56 @@ Take an object and shows its values. Can be used for easily showwing your settin
   ┃     multi         false                 ┃
   ┃     multi         false                 ┃
 ```
+
+### Customizing
+
+There are few things which can be easily customized. The border type and the color of the borders.
+To give the borders another color you pass an object to the function with the settings;
+
+```js
+const settings = {
+	borderType: "double",
+	borderColor: "blue"
+};
+
+log.BLOCK_START("My Text", settings);
+```
+
+You will have to pass these settings to any occurence of a log.
+
+#### Border Type
+
+default: `borderType: 'single'`
+
+For now, there are two types of borders available; 'single' and 'double'
+
+Single:
+
+```
+┏━━━━┓
+┃    ┃
+┠────┨
+┃    ┃
+┗━━━━┛
+```
+
+Double:
+
+```
+╔════╗
+║    ║
+╟────╢
+║    ║
+╚════╝
+```
+
+#### Border Color
+
+default: `borderColor: 'dim'`
+
+To color the borders, Cli Block uses the 'kleur' package. All options provided by kleur are possible;
+
+reset, bold, dim, italic, underline, inverse, hidden, strikethrough, black, red, green, yellow, blue, magenta, cyan, white, gray, grey,bgBlack, bgRed, bgGreen, bgYellow,bgBlue, bgMagenta, bgCyan and bgWhite.
 
 ### Functions
 
