@@ -2,9 +2,11 @@
 	"name": "cli-block",
 	"version": "1.1.2",
 	"description": "Create nice looking CLI Blocks",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"scripts": {
-		"test": "node test/test.js"
+		"test": "jest",
+		"dev": "tsc -w",
+		"build": "tsc"
 	},
 	"repository": {
 		"type": "git",
@@ -25,5 +27,12 @@
 		"kleur": "^3.0.3",
 		"mono-str-width": "^1.0.0",
 		"window-size": "^1.1.1"
+	},
+	"devDependencies": {
+		"@types/jest": "^25.2.1",
+		"@types/node": "^13.11.0",
+		"jest": "^25.2.7",
+		"ts-jest": "^25.3.1",
+		"typescript": "^3.8.3"
 	}
 }
