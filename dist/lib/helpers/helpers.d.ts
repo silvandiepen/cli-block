@@ -1,0 +1,10 @@
+export declare const asyncForEach: (array: any, callback: any) => Promise<void>;
+export declare const objectToString: (obj: any) => string;
+export declare const toRoundNumber: (num: number, decimalPlaces?: number) => string;
+export declare const toStringValue: (value: any) => any;
+export declare const spaces: (num: number, value?: any) => string;
+export declare const spacedText: (num: number, value: string) => string;
+export declare const repeat: (num: any, value?: any) => string;
+export declare const stylelizeValue: (value: string | number | boolean) => string;
+export declare const centerText: (value: string, num: number) => string;
+export declare const breakText: (value: string, width: number) => any[];
