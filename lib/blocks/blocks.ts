@@ -33,7 +33,7 @@ export const START = (
 	msg: string,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 	LOGG("\n");
 	LOGG(
 		spaces(PADDING + settings.indentBlock) + bgBlue().black(" " + msg + " ")
@@ -46,7 +46,7 @@ export const BLOCK_LINE = (
 	msg: string | null | Array<string> = null,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	if (msg == null) {
 		LOGG(
@@ -87,7 +87,7 @@ export const BLOCK_ROW_LINE = (
 	arr: Array<string | number | boolean>,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	let str = "";
 	arr = arr.map((item) => toStringValue(item));
@@ -104,7 +104,7 @@ export const BLOCK_LINE_SUCCESS = (
 	msg: string,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	settings.prefix = green("✔");
 	BLOCK_LINE(msg, settings);
@@ -115,7 +115,7 @@ export const BLOCK_LINE_ERROR = (
 	msg: string,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	settings.prefix = red("×");
 	BLOCK_LINE(msg, settings);
@@ -126,7 +126,7 @@ export const BLOCK_LINE_WARNING = (
 	msg: string,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	settings.prefix = yellow("!");
 	BLOCK_LINE(msg, settings);
@@ -137,7 +137,7 @@ export const BLOCK_START = (
 	txt: string = "",
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	if (txt)
 		LOGG(
@@ -167,8 +167,9 @@ export const BLOCK_MID = (
 	txt = null,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
+	BLOCK_LINE();
 	if (txt)
 		LOGG(
 			`${spaces(settings.indentBlock)}${border("midStart", settings)}${repeat(
@@ -193,16 +194,39 @@ export const BLOCK_MID = (
 };
 
 // Closing Block
-export const BLOCK_END = (txt, settings: SettingsArgType = defaultSettings) => {
-	settings = { ...settings, ...defaultSettings };
+export const BLOCK_END = (
+	txt: string | null = null,
+	settings: SettingsArgType = defaultSettings
+) => {
+	settings = { ...defaultSettings, ...settings };
 
 	BLOCK_LINE(null, settings);
-	LOGG(
-		`${spaces(settings.indentBlock)}${border("bottomStart", settings)}${repeat(
-			FRAME_WIDTH,
-			`${border("line", settings)}`
-		)}${border("bottomEnd", settings)}`
-	);
+	if (txt)
+		LOGG(
+			`${spaces(settings.indentBlock)}${border(
+				"bottomStart",
+				settings
+			)}${repeat(
+				Math.floor(FRAME_WIDTH / 3),
+				border("line", settings)
+			)}${centerText(
+				bold(txt),
+				FRAME_WIDTH - Math.floor(FRAME_WIDTH / 3) * 2
+			)}${repeat(
+				Math.floor(FRAME_WIDTH / 3),
+				`${border("line", settings)}`
+			)}${border("bottomEnd", settings)}`
+		);
+	else
+		LOGG(
+			`${spaces(settings.indentBlock)}${border(
+				"bottomStart",
+				settings
+			)}${repeat(FRAME_WIDTH, `${border("line", settings)}`)}${border(
+				"bottomEnd",
+				settings
+			)}`
+		);
 };
 
 // Auto Settings display
@@ -210,7 +234,7 @@ export const BLOCK_SETTINGS = async (
 	obj,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	let lines = [];
 
@@ -245,7 +269,7 @@ export const BLOCK_WARNINGS = (
 	warning,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	if (!warning || warning.length < 1) return false;
 	BLOCK_LINE(null, settings);
@@ -259,7 +283,7 @@ export const BLOCK_ERRORS = (
 	error,
 	settings: SettingsArgType = defaultSettings
 ) => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	if (!error || error.length < 1) return false;
 	BLOCK_LINE(null, settings);

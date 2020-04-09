@@ -11,7 +11,7 @@ export declare const BLOCK_LINE_ERROR: (msg: string, settings?: SettingsArgType)
 export declare const BLOCK_LINE_WARNING: (msg: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_START: (txt?: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_MID: (txt?: any, settings?: SettingsArgType) => void;
-export declare const BLOCK_END: (txt: any, settings?: SettingsArgType) => void;
+export declare const BLOCK_END: (txt?: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_SETTINGS: (obj: any, settings?: SettingsArgType) => Promise<void>;
 export declare const BLOCK_WARNINGS: (warning: any, settings?: SettingsArgType) => boolean;
 export declare const BLOCK_ERRORS: (error: any, settings?: SettingsArgType) => boolean;

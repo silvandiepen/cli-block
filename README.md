@@ -80,7 +80,7 @@ Takes an array and automatically spaces the values over a line. Can be used to c
   ┃     Atomatic     Spaced      Text       ┃
 ```
 
-#### BLOCK_ERROR_LINE
+#### BLOCK_LINE_ERROR
 
 Automatically adds a red x for the line
 
@@ -88,7 +88,7 @@ Automatically adds a red x for the line
   ┃     × Something went wrong              ┃
 ```
 
-#### BLOCK_SUCCES_LINE
+#### BLOCK_LINE_SUCCES
 
 Automatically adds a green check for the line
 
@@ -96,7 +96,7 @@ Automatically adds a green check for the line
   ┃     ✔ This is right                     ┃
 ```
 
-#### BLOCK_WARNING_LINE
+#### BLOCK_LINE_WARNING
 
 Automatically adds a yellow warning sign for the line
 
@@ -140,7 +140,7 @@ To give the borders another color you pass an object to the function with the se
 ```js
 const settings = {
 	borderType: "double",
-	borderColor: "blue"
+	borderColor: "blue",
 };
 
 log.BLOCK_START("My Text", settings);

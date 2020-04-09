@@ -4,7 +4,7 @@
 	"description": "Create nice looking CLI Blocks",
 	"main": "dist/index.js",
 	"scripts": {
-		"test": "jest",
+		"test": "npm run build && jest",
 		"dev": "tsc -w",
 		"build": "tsc"
 	},

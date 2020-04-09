@@ -1,2 +1,2 @@
-export * from "./blocks";
+export * from "./blocks/blocks";
 export * from "./helpers";

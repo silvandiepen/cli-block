@@ -27,14 +27,14 @@ exports.CONTENT_WIDTH = exports.FRAME_WIDTH - exports.PADDING * 2;
 const LOGG = (v = "") => (v ? console.log(v) : console.log());
 // Start the code with a block with a title.
 exports.START = (msg, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     LOGG("\n");
     LOGG(helpers_1.spaces(exports.PADDING + settings.indentBlock) + kleur_1.bgBlue().black(" " + msg + " "));
     LOGG("\n");
 };
 // The basic line.
 exports.BLOCK_LINE = (msg = null, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     if (msg == null) {
         LOGG(helpers_1.spaces(settings.indentBlock) +
             border_1.border("side", settings) +
@@ -62,7 +62,7 @@ exports.EMPTY = (msg) => {
     LOGG();
 };
 exports.BLOCK_ROW_LINE = (arr, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     let str = "";
     arr = arr.map((item) => helpers_1.toStringValue(item));
     let COLUMN_WIDTH = Math.floor(exports.CONTENT_WIDTH / arr.length) - 1;
@@ -73,25 +73,25 @@ exports.BLOCK_ROW_LINE = (arr, settings = settings_1.defaultSettings) => {
 };
 // lINE With auto checkmark for success
 exports.BLOCK_LINE_SUCCESS = (msg, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     settings.prefix = kleur_1.green("✔");
     exports.BLOCK_LINE(msg, settings);
 };
 // LINE with auto X for errors
 exports.BLOCK_LINE_ERROR = (msg, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     settings.prefix = kleur_1.red("×");
     exports.BLOCK_LINE(msg, settings);
 };
 // LINE with auto ! for warnings
 exports.BLOCK_LINE_WARNING = (msg, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     settings.prefix = kleur_1.yellow("!");
     exports.BLOCK_LINE(msg, settings);
 };
 // The Start block
 exports.BLOCK_START = (txt = "", settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     if (txt)
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${border_1.border("topEnd", settings)}`);
     else
@@ -100,7 +100,8 @@ exports.BLOCK_START = (txt = "", settings = settings_1.defaultSettings) => {
 };
 // A Mid Block Line
 exports.BLOCK_MID = (txt = null, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
+    exports.BLOCK_LINE();
     if (txt)
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("midLine", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("midLine", settings)}`)}${border_1.border("midEnd", settings)}`);
     else
@@ -108,14 +109,17 @@ exports.BLOCK_MID = (txt = null, settings = settings_1.defaultSettings) => {
     exports.BLOCK_LINE();
 };
 // Closing Block
-exports.BLOCK_END = (txt, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+exports.BLOCK_END = (txt = null, settings = settings_1.defaultSettings) => {
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     exports.BLOCK_LINE(null, settings);
-    LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`);
+    if (txt)
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`);
+    else
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`);
 };
 // Auto Settings display
 exports.BLOCK_SETTINGS = (obj, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     let lines = [];
     yield helpers_1.asyncForEach(Object.keys(obj), (value) => {
         let styledValue = helpers_1.stylelizeValue(obj[value]);
@@ -143,7 +147,7 @@ exports.BLOCK_SETTINGS = (obj, settings = settings_1.defaultSettings) => __await
     exports.BLOCK_LINE(null, settings);
 });
 exports.BLOCK_WARNINGS = (warning, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     if (!warning || warning.length < 1)
         return false;
     exports.BLOCK_LINE(null, settings);
@@ -153,7 +157,7 @@ exports.BLOCK_WARNINGS = (warning, settings = settings_1.defaultSettings) => {
     });
 };
 exports.BLOCK_ERRORS = (error, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     if (!error || error.length < 1)
         return false;
     exports.BLOCK_LINE(null, settings);

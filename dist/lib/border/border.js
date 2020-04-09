@@ -30,7 +30,7 @@ const borderCharacters = {
     },
 };
 exports.border = (type, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings), settings_1.defaultSettings);
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     let char = "";
     if (borderCharacters[settings.borderType] &&
         borderCharacters[settings.borderType][type])
@@ -38,7 +38,7 @@ exports.border = (type, settings = settings_1.defaultSettings) => {
     else if (borderCharacters[settings_1.defaultSettings.borderType][type])
         char = borderCharacters[settings_1.defaultSettings.borderType][type];
     else
-        char = "";
+        return "";
     if (kleur_1.default[settings.borderColor])
         char = kleur_1.default[settings.borderColor](char);
     return char;

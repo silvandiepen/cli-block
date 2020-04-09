@@ -31,7 +31,7 @@ export const border = (
 	type: string,
 	settings: SettingsArgType = defaultSettings
 ): string => {
-	settings = { ...settings, ...defaultSettings };
+	settings = { ...defaultSettings, ...settings };
 
 	let char = "";
 	if (
@@ -41,7 +41,7 @@ export const border = (
 		char = borderCharacters[settings.borderType][type];
 	else if (borderCharacters[defaultSettings.borderType][type])
 		char = borderCharacters[defaultSettings.borderType][type];
-	else char = "";
+	else return "";
 
 	if (kleur[settings.borderColor]) char = kleur[settings.borderColor](char);
 
