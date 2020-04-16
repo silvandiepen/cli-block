@@ -84,7 +84,7 @@ export const EMPTY = (msg: string) => {
 };
 
 export const BLOCK_ROW_LINE = (
-	arr: Array<string | number | boolean>,
+	arr: Array<any>,
 	settings: SettingsArgType = defaultSettings
 ) => {
 	settings = { ...defaultSettings, ...settings };
