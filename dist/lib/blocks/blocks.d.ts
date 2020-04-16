@@ -5,7 +5,7 @@ export declare const CONTENT_WIDTH: number;
 export declare const START: (msg: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE: (msg?: string | string[], settings?: SettingsArgType) => void;
 export declare const EMPTY: (msg: string) => void;
-export declare const BLOCK_ROW_LINE: (arr: (string | number | boolean)[], settings?: SettingsArgType) => void;
+export declare const BLOCK_ROW_LINE: (arr: any[], settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE_SUCCESS: (msg: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE_ERROR: (msg: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE_WARNING: (msg: string, settings?: SettingsArgType) => void;
