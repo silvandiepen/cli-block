@@ -5,7 +5,7 @@ Create good looking blocks in your CLI
 ![intro](https://i.ibb.co/9v2bx1N/Screenshot-2020-02-22-at-11-34-29.png)
 
 ```js
-const log = require("cli-block");
+import * as log from "cli-block";
 
 log.START("CLI Blocks");
 log.BLOCK_START("Let's go");
@@ -27,7 +27,7 @@ npm i cli-block
 And use it in your js file;
 
 ```js
-const log = require("cli-block");
+import * as log from "cli-block";
 
 log.START("CLI Blocks");
 ```
