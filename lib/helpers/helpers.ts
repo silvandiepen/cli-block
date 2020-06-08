@@ -55,12 +55,29 @@ export const repeat = (num, value = null) => {
 	return values.join("");
 };
 
-export const stylelizeValue = (value: string | number | boolean) => {
-	if (value == null) return `${italic("null")}`;
-	if (typeof value !== "boolean" && !value) return "";
-	let stringValue = value.toString();
-	// if (typeof value !== "string") return value;
-	if (stringValue == "true") return `${green("True")}`;
+export const stylelizeValue = (
+	value: string | number | boolean | string[] | object
+) => {
+	let stringValue = "";
+
+	// Empty string
+	if (value == null) stringValue = `${italic("null")}`;
+	// If there is not value
+	else if (typeof value !== "boolean" && !value) stringValue = "";
+	// If the value is object of non-strings
+	else if (typeof value === "object" && typeof value[0] !== "string") {
+		stringValue = Object.keys(value).join(", ");
+	}
+	// If the value is an array of strings
+	else if (Array.isArray(value)) {
+		stringValue = value.join(", ");
+	} else {
+		stringValue = value.toString();
+	}
+
+	if (stringValue == "true")
+		// if (typeof value !== "string") return value;
+		return `${green("True")}`;
 	else if (stringValue == "false") return `${red("False")}`;
 	else if (stringValue.includes("/")) return `${blue().italic(stringValue)}`;
 	else return stringValue;

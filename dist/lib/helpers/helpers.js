@@ -66,13 +66,26 @@ exports.repeat = (num, value = null) => {
     return values.join("");
 };
 exports.stylelizeValue = (value) => {
+    let stringValue = "";
+    // Empty string
     if (value == null)
-        return `${kleur_1.italic("null")}`;
-    if (typeof value !== "boolean" && !value)
-        return "";
-    let stringValue = value.toString();
-    // if (typeof value !== "string") return value;
+        stringValue = `${kleur_1.italic("null")}`;
+    // If there is not value
+    else if (typeof value !== "boolean" && !value)
+        stringValue = "";
+    // If the value is object of non-strings
+    else if (typeof value === "object" && typeof value[0] !== "string") {
+        stringValue = Object.keys(value).join(", ");
+    }
+    // If the value is an array of strings
+    else if (Array.isArray(value)) {
+        stringValue = value.join(", ");
+    }
+    else {
+        stringValue = value.toString();
+    }
     if (stringValue == "true")
+        // if (typeof value !== "string") return value;
         return `${kleur_1.green("True")}`;
     else if (stringValue == "false")
         return `${kleur_1.red("False")}`;

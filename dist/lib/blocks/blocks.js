@@ -118,7 +118,7 @@ exports.BLOCK_END = (txt = null, settings = settings_1.defaultSettings) => {
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`);
 };
 // Auto Settings display
-exports.BLOCK_SETTINGS = (obj, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
+exports.BLOCK_SETTINGS = (obj, config = null, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     let lines = [];
     yield helpers_1.asyncForEach(Object.keys(obj), (value) => {
@@ -128,7 +128,7 @@ exports.BLOCK_SETTINGS = (obj, settings = settings_1.defaultSettings) => __await
             case "src":
             case "dest":
             case "template":
-                if (obj[value] == false && obj[value] !== null)
+                if (!obj[value])
                     error = true;
                 break;
             default:
@@ -137,8 +137,11 @@ exports.BLOCK_SETTINGS = (obj, settings = settings_1.defaultSettings) => __await
         }
         if (error)
             styledValue = `${kleur_1.red("×")} ${styledValue}`;
-        let settingLine = `${kleur_1.bold(value)}${helpers_1.spaces(20, value)}${styledValue}`;
-        lines.push(settingLine);
+        if ((config && config.exclude && !config.exclude.includes(value)) ||
+            !config ||
+            (!config.exclude && !config.include) ||
+            (config && config.include && config.include.includes(value)))
+            lines.push(`${kleur_1.bold(value)}${helpers_1.spaces(20, value)}${styledValue}`);
     });
     exports.BLOCK_LINE(null, settings);
     lines.forEach((line) => {

@@ -229,23 +229,29 @@ export const BLOCK_END = (
 		);
 };
 
+interface SettingsConfig {
+	exclude?: string[];
+	include?: string[];
+}
+
 // Auto Settings display
 export const BLOCK_SETTINGS = async (
-	obj,
+	obj: any,
+	config: SettingsConfig | null = null,
 	settings: SettingsArgType = defaultSettings
-) => {
+): Promise<void> => {
 	settings = { ...defaultSettings, ...settings };
 
 	let lines = [];
 
-	await asyncForEach(Object.keys(obj), (value) => {
+	await asyncForEach(Object.keys(obj), (value: string) => {
 		let styledValue = stylelizeValue(obj[value]);
 		let error;
 		switch (value) {
 			case "src":
 			case "dest":
 			case "template":
-				if (obj[value] == false && obj[value] !== null) error = true;
+				if (!obj[value]) error = true;
 				break;
 			default:
 				error = false;
@@ -253,9 +259,14 @@ export const BLOCK_SETTINGS = async (
 		}
 
 		if (error) styledValue = `${red("×")} ${styledValue}`;
-		let settingLine = `${bold(value)}${spaces(20, value)}${styledValue}`;
 
-		lines.push(settingLine);
+		if (
+			(config && config.exclude && !config.exclude.includes(value)) ||
+			!config ||
+			(!config.exclude && !config.include) ||
+			(config && config.include && config.include.includes(value))
+		)
+			lines.push(`${bold(value)}${spaces(20, value)}${styledValue}`);
 	});
 
 	BLOCK_LINE(null, settings);
