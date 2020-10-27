@@ -265,6 +265,21 @@ interface SettingsConfig {
   include?: string[];
 }
 
+export const BLOCK_JSON = async (
+  obj: any,
+  settings: SettingsArgType = defaultSettings
+): Promise<void> => {
+  settings = { ...defaultSettings, ...settings };
+
+  const text = JSON.stringify(obj, null, "\t");
+  const lines = text.split("\n");
+
+  BLOCK_LINE(null, settings);
+  lines.forEach((line) => {
+    BLOCK_LINE(line.replace(/\t/g, " "), settings);
+  });
+  BLOCK_LINE(null, settings);
+};
 // Auto Settings display
 export const BLOCK_SETTINGS = async (
   obj: any,

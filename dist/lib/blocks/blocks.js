@@ -133,6 +133,16 @@ exports.BLOCK_END = (txt = null, settings = settings_1.defaultSettings) => {
     else
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`, settings);
 };
+exports.BLOCK_JSON = (obj, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
+    const text = JSON.stringify(obj, null, "\t");
+    const lines = text.split("\n");
+    exports.BLOCK_LINE(null, settings);
+    lines.forEach((line) => {
+        exports.BLOCK_LINE(line.replace(/\t/g, " "), settings);
+    });
+    exports.BLOCK_LINE(null, settings);
+});
 // Auto Settings display
 exports.BLOCK_SETTINGS = (obj, config = null, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
