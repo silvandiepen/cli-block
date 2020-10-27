@@ -7,4 +7,5 @@ export declare const spacedText: (num: number, value: string) => string;
 export declare const repeat: (num: any, value?: any) => string;
 export declare const stylelizeValue: (value: string | number | boolean | object | string[]) => string;
 export declare const centerText: (value: string, num: number) => string;
+export declare const hello: (arg: any) => Promise<any>;
 export declare const breakText: (value: string, width: number) => any[];
