@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/silvandiepen/cli-block#readme",
 	"dependencies": {
+		"cli-highlight": "^2.1.4",
 		"kleur": "^3.0.3",
 		"mono-str-width": "^1.0.0",
 		"window-size": "^1.1.1"

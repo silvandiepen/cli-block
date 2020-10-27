@@ -11,6 +11,8 @@ import {
 
 import readline from "readline";
 
+const highlight = require("cli-highlight").highlight;
+
 import { SettingsArgType } from "../types";
 import { border } from "../border";
 import { defaultSettings } from "../settings";
@@ -271,7 +273,10 @@ export const BLOCK_JSON = async (
 ): Promise<void> => {
   settings = { ...defaultSettings, ...settings };
 
-  const text = JSON.stringify(obj, null, "\t");
+  const text = highlight(JSON.stringify(obj, null, "\t"), {
+    language: "json",
+    ignoreIllegals: true,
+  });
   const lines = text.split("\n");
 
   BLOCK_LINE(null, settings);

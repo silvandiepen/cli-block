@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const helpers_1 = require("../helpers");
 const readline_1 = __importDefault(require("readline"));
+const highlight = require("cli-highlight").highlight;
 const border_1 = require("../border");
 const settings_1 = require("../settings");
 const kleur_1 = require("kleur");
@@ -135,7 +136,10 @@ exports.BLOCK_END = (txt = null, settings = settings_1.defaultSettings) => {
 };
 exports.BLOCK_JSON = (obj, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
-    const text = JSON.stringify(obj, null, "\t");
+    const text = highlight(JSON.stringify(obj, null, "\t"), {
+        language: "json",
+        ignoreIllegals: true,
+    });
     const lines = text.split("\n");
     exports.BLOCK_LINE(null, settings);
     lines.forEach((line) => {
