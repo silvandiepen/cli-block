@@ -6,5 +6,6 @@ exports.defaultSettings = {
     frameWidth: 80,
     indentBlock: 5,
     prefix: "",
+    newLine: true,
 };
 //# sourceMappingURL=settings.js.map

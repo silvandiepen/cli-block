@@ -9,12 +9,15 @@ import {
   asyncForEach,
 } from "../helpers";
 
+import readline from "readline";
+
 import { SettingsArgType } from "../types";
 import { border } from "../border";
 import { defaultSettings } from "../settings";
 
 import { red, yellow, bgBlue, green, bold } from "kleur";
 import stringWidth from "mono-str-width";
+import { Console } from "console";
 
 export const FRAME_WIDTH =
   process.stdout.columns <
@@ -26,7 +29,23 @@ export const PADDING = FRAME_WIDTH / 10;
 export const CONTENT_WIDTH = FRAME_WIDTH - PADDING * 2;
 
 // LOGGER. Can be switched off
-const LOGG = (v: string = "") => (v ? console.log(v) : console.log());
+const LOGG = (v: string = "", settings: SettingsArgType = defaultSettings) => {
+  settings = { ...defaultSettings, ...settings };
+  if (settings.newLine)
+    v ? process.stdout.write(v + "\n") : process.stdout.write("\n");
+  else v ? process.stdout.write(v) : process.stdout.write("");
+};
+export const CLEAR = () => {
+  process.stdout.clearLine(null);
+  process.stdout.cursorTo(0);
+};
+
+export const NEW_LINE = () => process.stdout.write("\n");
+
+export const RENEW_LINE = (msg: string): void => {
+  readline.cursorTo(process.stdout, 0);
+  process.stdout.write(`${msg}`);
+};
 
 // Start the code with a block with a title.
 export const START = (
@@ -34,11 +53,12 @@ export const START = (
   settings: SettingsArgType = defaultSettings
 ) => {
   settings = { ...defaultSettings, ...settings };
-  LOGG("\n");
+  LOGG("\n", settings);
   LOGG(
-    spaces(PADDING + settings.indentBlock) + bgBlue().black(" " + msg + " ")
+    spaces(PADDING + settings.indentBlock) + bgBlue().black(" " + msg + " "),
+    settings
   );
-  LOGG("\n");
+  LOGG("\n", settings);
 };
 
 // The basic line.
@@ -53,7 +73,8 @@ export const BLOCK_LINE = (
       spaces(settings.indentBlock) +
         border("side", settings) +
         spaces(FRAME_WIDTH) +
-        border("side", settings)
+        border("side", settings),
+      settings
     );
     return;
   }
@@ -73,14 +94,18 @@ export const BLOCK_LINE = (
         spaces(PADDING) +
         spacedText(CONTENT_WIDTH, txt) +
         spaces(PADDING) +
-        border("side", settings)
+        border("side", settings),
+      settings
     );
   });
 };
 
 // lINE With auto checkmark for success
-export const EMPTY = (msg: string) => {
-  LOGG();
+export const EMPTY = (
+  msg: string,
+  settings: SettingsArgType = defaultSettings
+) => {
+  LOGG(null, settings);
 };
 
 export const BLOCK_ROW_LINE = (
@@ -96,7 +121,7 @@ export const BLOCK_ROW_LINE = (
     str = str + spacedText(COLUMN_WIDTH, item.toString());
   });
 
-  BLOCK_LINE(str);
+  BLOCK_LINE(str, settings);
 };
 
 // lINE With auto checkmark for success
@@ -150,14 +175,16 @@ export const BLOCK_START = (
       )}${repeat(
         Math.floor(FRAME_WIDTH / 3),
         border("line", settings)
-      )}${border("topEnd", settings)}`
+      )}${border("topEnd", settings)}`,
+      settings
     );
   else
     LOGG(
       `${spaces(settings.indentBlock)}${border("topStart", settings)}${repeat(
         FRAME_WIDTH,
         border("line", settings)
-      )}${border("topEnd", settings)}`
+      )}${border("topEnd", settings)}`,
+      settings
     );
   BLOCK_LINE(null, settings);
 };
@@ -181,14 +208,16 @@ export const BLOCK_MID = (
       )}${repeat(
         Math.floor(FRAME_WIDTH / 3),
         `${border("midLine", settings)}`
-      )}${border("midEnd", settings)}`
+      )}${border("midEnd", settings)}`,
+      settings
     );
   else
     LOGG(
       `${spaces(settings.indentBlock)}${border("midStart", settings)}${repeat(
         FRAME_WIDTH,
         border("midLine", settings)
-      )}${border("midEnd", settings)}`
+      )}${border("midEnd", settings)}`,
+      settings
     );
   BLOCK_LINE(null, settings);
 };
@@ -215,7 +244,8 @@ export const BLOCK_END = (
       )}${repeat(
         Math.floor(FRAME_WIDTH / 3),
         `${border("line", settings)}`
-      )}${border("bottomEnd", settings)}`
+      )}${border("bottomEnd", settings)}`,
+      settings
     );
   else
     LOGG(
@@ -225,7 +255,8 @@ export const BLOCK_END = (
       )}${repeat(FRAME_WIDTH, `${border("line", settings)}`)}${border(
         "bottomEnd",
         settings
-      )}`
+      )}`,
+      settings
     );
 };
 

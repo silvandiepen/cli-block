@@ -1,6 +1,6 @@
 // Logging Helpers
 import stringWidth from "mono-str-width";
-import { red, blue, green, italic } from "kleur";
+import { red, blue, green, italic, yellow } from "kleur";
 
 export const asyncForEach = async (array, callback) => {
   for (let index = 0; index < array.length; index++) {
@@ -69,15 +69,12 @@ export const stylelizeValue = (
     stringValue = Object.keys(value).join(", ");
   }
   // If the value is an array of strings
-  else if (Array.isArray(value)) {
-    stringValue = value.join(", ");
-  } else {
-    stringValue = value.toString();
-  }
+  else if (Array.isArray(value)) stringValue = value.join(", ");
+  else stringValue = value.toString();
 
-  if (stringValue == "true")
-    // if (typeof value !== "string") return value;
-    return `${green("True")}`;
+  if (typeof value == "number") stringValue = `${yellow(value)}`;
+
+  if (stringValue == "true") return `${green("True")}`;
   else if (stringValue == "false") return `${red("False")}`;
   else if (stringValue.includes("/")) return `${blue().italic(stringValue)}`;
   else return stringValue;

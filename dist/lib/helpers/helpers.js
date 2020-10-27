@@ -78,14 +78,13 @@ exports.stylelizeValue = (value) => {
         stringValue = Object.keys(value).join(", ");
     }
     // If the value is an array of strings
-    else if (Array.isArray(value)) {
+    else if (Array.isArray(value))
         stringValue = value.join(", ");
-    }
-    else {
+    else
         stringValue = value.toString();
-    }
+    if (typeof value == "number")
+        stringValue = `${kleur_1.yellow(value)}`;
     if (stringValue == "true")
-        // if (typeof value !== "string") return value;
         return `${kleur_1.green("True")}`;
     else if (stringValue == "false")
         return `${kleur_1.red("False")}`;

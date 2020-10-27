@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const helpers_1 = require("../helpers");
+const readline_1 = __importDefault(require("readline"));
 const border_1 = require("../border");
 const settings_1 = require("../settings");
 const kleur_1 = require("kleur");
@@ -24,13 +25,28 @@ exports.FRAME_WIDTH = process.stdout.columns <
 exports.PADDING = exports.FRAME_WIDTH / 10;
 exports.CONTENT_WIDTH = exports.FRAME_WIDTH - exports.PADDING * 2;
 // LOGGER. Can be switched off
-const LOGG = (v = "") => (v ? console.log(v) : console.log());
+const LOGG = (v = "", settings = settings_1.defaultSettings) => {
+    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
+    if (settings.newLine)
+        v ? process.stdout.write(v + "\n") : process.stdout.write("\n");
+    else
+        v ? process.stdout.write(v) : process.stdout.write("");
+};
+exports.CLEAR = () => {
+    process.stdout.clearLine(null);
+    process.stdout.cursorTo(0);
+};
+exports.NEW_LINE = () => process.stdout.write("\n");
+exports.RENEW_LINE = (msg) => {
+    readline_1.default.cursorTo(process.stdout, 0);
+    process.stdout.write(`${msg}`);
+};
 // Start the code with a block with a title.
 exports.START = (msg, settings = settings_1.defaultSettings) => {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
-    LOGG("\n");
-    LOGG(helpers_1.spaces(exports.PADDING + settings.indentBlock) + kleur_1.bgBlue().black(" " + msg + " "));
-    LOGG("\n");
+    LOGG("\n", settings);
+    LOGG(helpers_1.spaces(exports.PADDING + settings.indentBlock) + kleur_1.bgBlue().black(" " + msg + " "), settings);
+    LOGG("\n", settings);
 };
 // The basic line.
 exports.BLOCK_LINE = (msg = null, settings = settings_1.defaultSettings) => {
@@ -39,7 +55,7 @@ exports.BLOCK_LINE = (msg = null, settings = settings_1.defaultSettings) => {
         LOGG(helpers_1.spaces(settings.indentBlock) +
             border_1.border("side", settings) +
             helpers_1.spaces(exports.FRAME_WIDTH) +
-            border_1.border("side", settings));
+            border_1.border("side", settings), settings);
         return;
     }
     if (typeof msg == "string")
@@ -54,12 +70,12 @@ exports.BLOCK_LINE = (msg = null, settings = settings_1.defaultSettings) => {
             helpers_1.spaces(exports.PADDING) +
             helpers_1.spacedText(exports.CONTENT_WIDTH, txt) +
             helpers_1.spaces(exports.PADDING) +
-            border_1.border("side", settings));
+            border_1.border("side", settings), settings);
     });
 };
 // lINE With auto checkmark for success
-exports.EMPTY = (msg) => {
-    LOGG();
+exports.EMPTY = (msg, settings = settings_1.defaultSettings) => {
+    LOGG(null, settings);
 };
 exports.BLOCK_ROW_LINE = (arr, settings = settings_1.defaultSettings) => {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
@@ -69,7 +85,7 @@ exports.BLOCK_ROW_LINE = (arr, settings = settings_1.defaultSettings) => {
     arr.forEach((item) => {
         str = str + helpers_1.spacedText(COLUMN_WIDTH, item.toString());
     });
-    exports.BLOCK_LINE(str);
+    exports.BLOCK_LINE(str, settings);
 };
 // lINE With auto checkmark for success
 exports.BLOCK_LINE_SUCCESS = (msg, settings = settings_1.defaultSettings) => {
@@ -93,9 +109,9 @@ exports.BLOCK_LINE_WARNING = (msg, settings = settings_1.defaultSettings) => {
 exports.BLOCK_START = (txt = "", settings = settings_1.defaultSettings) => {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     if (txt)
-        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${border_1.border("topEnd", settings)}`);
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${border_1.border("topEnd", settings)}`, settings);
     else
-        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, border_1.border("line", settings))}${border_1.border("topEnd", settings)}`);
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, border_1.border("line", settings))}${border_1.border("topEnd", settings)}`, settings);
     exports.BLOCK_LINE(null, settings);
 };
 // A Mid Block Line
@@ -103,9 +119,9 @@ exports.BLOCK_MID = (txt = null, settings = settings_1.defaultSettings) => {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     exports.BLOCK_LINE(null, settings);
     if (txt)
-        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("midLine", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("midLine", settings)}`)}${border_1.border("midEnd", settings)}`);
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("midLine", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("midLine", settings)}`)}${border_1.border("midEnd", settings)}`, settings);
     else
-        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, border_1.border("midLine", settings))}${border_1.border("midEnd", settings)}`);
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, border_1.border("midLine", settings))}${border_1.border("midEnd", settings)}`, settings);
     exports.BLOCK_LINE(null, settings);
 };
 // Closing Block
@@ -113,9 +129,9 @@ exports.BLOCK_END = (txt = null, settings = settings_1.defaultSettings) => {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     exports.BLOCK_LINE(null, settings);
     if (txt)
-        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`);
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`, settings);
     else
-        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`);
+        LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("bottomStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, `${border_1.border("line", settings)}`)}${border_1.border("bottomEnd", settings)}`, settings);
 };
 // Auto Settings display
 exports.BLOCK_SETTINGS = (obj, config = null, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {

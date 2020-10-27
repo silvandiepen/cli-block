@@ -4,6 +4,7 @@ export interface SettingsType {
     frameWidth: number;
     indentBlock: number;
     prefix: string;
+    newLine: boolean;
 }
 export interface SettingsArgType {
     borderType?: string;
@@ -11,4 +12,5 @@ export interface SettingsArgType {
     frameWidth?: number;
     indentBlock?: number;
     prefix?: string;
+    newLine?: boolean;
 }
