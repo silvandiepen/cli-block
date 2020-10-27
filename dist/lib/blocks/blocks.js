@@ -96,17 +96,17 @@ exports.BLOCK_START = (txt = "", settings = settings_1.defaultSettings) => {
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("line", settings))}${border_1.border("topEnd", settings)}`);
     else
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("topStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, border_1.border("line", settings))}${border_1.border("topEnd", settings)}`);
-    exports.BLOCK_LINE();
+    exports.BLOCK_LINE(null, settings);
 };
 // A Mid Block Line
 exports.BLOCK_MID = (txt = null, settings = settings_1.defaultSettings) => {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
-    exports.BLOCK_LINE();
+    exports.BLOCK_LINE(null, settings);
     if (txt)
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), border_1.border("midLine", settings))}${helpers_1.centerText(kleur_1.bold(txt), exports.FRAME_WIDTH - Math.floor(exports.FRAME_WIDTH / 3) * 2)}${helpers_1.repeat(Math.floor(exports.FRAME_WIDTH / 3), `${border_1.border("midLine", settings)}`)}${border_1.border("midEnd", settings)}`);
     else
         LOGG(`${helpers_1.spaces(settings.indentBlock)}${border_1.border("midStart", settings)}${helpers_1.repeat(exports.FRAME_WIDTH, border_1.border("midLine", settings))}${border_1.border("midEnd", settings)}`);
-    exports.BLOCK_LINE();
+    exports.BLOCK_LINE(null, settings);
 };
 // Closing Block
 exports.BLOCK_END = (txt = null, settings = settings_1.defaultSettings) => {
