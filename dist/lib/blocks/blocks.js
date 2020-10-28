@@ -148,7 +148,7 @@ exports.BLOCK_JSON = (obj, settings = settings_1.defaultSettings) => __awaiter(v
     exports.BLOCK_LINE(null, settings);
 });
 // Auto Settings display
-exports.BLOCK_SETTINGS = (obj, config = null, settings = settings_1.defaultSettings) => __awaiter(void 0, void 0, void 0, function* () {
+exports.BLOCK_SETTINGS = (obj, settings = settings_1.defaultSettings, config = null) => __awaiter(void 0, void 0, void 0, function* () {
     settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
     let lines = [];
     yield helpers_1.asyncForEach(Object.keys(obj), (value) => {

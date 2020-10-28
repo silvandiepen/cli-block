@@ -91,7 +91,7 @@ export const centerText = (value: string, num: number) => {
   return values.join("");
 };
 
-export const hello = async (arg) => {
+export const hello = async (arg = "") => {
   return arg;
 };
 

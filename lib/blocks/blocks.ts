@@ -288,8 +288,8 @@ export const BLOCK_JSON = async (
 // Auto Settings display
 export const BLOCK_SETTINGS = async (
   obj: any,
-  config: SettingsConfig | null = null,
-  settings: SettingsArgType = defaultSettings
+  settings: SettingsArgType = defaultSettings,
+  config: SettingsConfig | null = null
 ): Promise<void> => {
   settings = { ...defaultSettings, ...settings };
 

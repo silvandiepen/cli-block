@@ -20,7 +20,7 @@ interface SettingsConfig {
     include?: string[];
 }
 export declare const BLOCK_JSON: (obj: any, settings?: SettingsArgType) => Promise<void>;
-export declare const BLOCK_SETTINGS: (obj: any, config?: SettingsConfig, settings?: SettingsArgType) => Promise<void>;
+export declare const BLOCK_SETTINGS: (obj: any, settings?: SettingsArgType, config?: SettingsConfig) => Promise<void>;
 export declare const BLOCK_WARNINGS: (warning: any, settings?: SettingsArgType) => boolean;
 export declare const BLOCK_ERRORS: (error: any, settings?: SettingsArgType) => boolean;
 export {};

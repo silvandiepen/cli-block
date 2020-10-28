@@ -104,7 +104,7 @@ exports.centerText = (value, num) => {
         values.push(" ");
     return values.join("");
 };
-exports.hello = (arg) => __awaiter(void 0, void 0, void 0, function* () {
+exports.hello = (arg = "") => __awaiter(void 0, void 0, void 0, function* () {
     return arg;
 });
 exports.breakText = (value, width) => {
