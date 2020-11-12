@@ -1,49 +1,64 @@
-import { defaultSettings } from "../settings/settings";
+import { useSettings } from "../settings";
 import { SettingsArgType } from "../types";
 import kleur from "kleur";
 
 const borderCharacters = {
-	single: {
-		line: "━",
-		midLine: "─",
-		side: "┃",
-		topStart: "┏",
-		topEnd: "┓",
-		bottomStart: "┗",
-		bottomEnd: "┛",
-		midStart: "┠",
-		midEnd: "┨",
-	},
-	double: {
-		line: "═",
-		midLine: "─",
-		side: "║",
-		topStart: "╔",
-		topEnd: "╗",
-		bottomStart: "╚",
-		bottomEnd: "╝",
-		midStart: "╟",
-		midEnd: "╢",
-	},
+  single: {
+    startLine: "━",
+    endLine: "━",
+    midLine: "─",
+    midBreakTop: "┬",
+    midBreakBottom: "┴",
+    side: "┃",
+    topStart: "┏",
+    topEnd: "┓",
+    bottomStart: "┗",
+    bottomEnd: "┛",
+    midStart: "┠",
+    midEnd: "┨",
+  },
+  double: {
+    startLine: "═",
+    endLine: "═",
+    midLine: "─",
+    midBreakTop: "┬",
+    midBreakBottom: "┴",
+    side: "║",
+    topStart: "╔",
+    topEnd: "╗",
+    bottomStart: "╚",
+    bottomEnd: "╝",
+    midStart: "╟",
+    midEnd: "╢",
+  },
+  fat: {
+    startLine: "▘",
+    endLine: "▗",
+    midLine: "▄",
+    midBreakTop: "┬",
+    midBreakBottom: "┴",
+    side: "▞",
+    topStart: "▛",
+    topEnd: "▜",
+    bottomStart: "▙",
+    bottomEnd: "▟",
+    midStart: "▄",
+    midEnd: "▄",
+  },
 };
 
 export const border = (
-	type: string,
-	settings: SettingsArgType = defaultSettings
+  type: string,
+  settings: SettingsArgType = {}
 ): string => {
-	settings = { ...defaultSettings, ...settings };
+  const s = useSettings(settings);
 
-	let char = "";
-	if (
-		borderCharacters[settings.borderType] &&
-		borderCharacters[settings.borderType][type]
-	)
-		char = borderCharacters[settings.borderType][type];
-	else if (borderCharacters[defaultSettings.borderType][type])
-		char = borderCharacters[defaultSettings.borderType][type];
-	else return "";
+  let char = "";
+  if (borderCharacters[s.borderType][type])
+    char = borderCharacters[s.borderType][type];
+  else return "";
 
-	if (kleur[settings.borderColor]) char = kleur[settings.borderColor](char);
+  if (kleur[s.borderColor]) char = kleur[s.borderColor](char);
 
-	return char;
+  return char;
 };

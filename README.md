@@ -122,7 +122,7 @@ Just an empty line.
 
 #### BLOCK_SETTINGS
 
-Take an object and shows its values. Can be used for easily showwing your settings in an object.
+Take an object and shows its values. Can be used for easily showing your settings in an object.
 
 ```bash
   ┃     src           /path/to/files        ┃
@@ -132,6 +132,73 @@ Take an object and shows its values. Can be used for easily showwing your settin
   ┃     multi         false                 ┃
 ```
 
+#### BLOCK_JSON
+
+Throw in a JSON object or string and automatically show it as Json content.
+
+```bash
+     ┃        {                                                                       ┃
+     ┃         "String": "is a test",                                                 ┃
+     ┃         "Number": 2000,                                                        ┃
+     ┃         "Object": {                                                            ┃
+     ┃          "item1": "value1",                                                    ┃
+     ┃          "item2": "value1"                                                     ┃
+     ┃         },                                                                     ┃
+     ┃         "Array": [                                                             ┃
+     ┃          "item1",                                                              ┃
+     ┃          "item2"                                                               ┃
+     ┃         ]                                                                      ┃
+     ┃        }                                                                       ┃
+```
+
+### BLOCK_COUNTER
+
+```bash
+     ┃        Still 5 seconds to go...                                                ┃
+```
+
+You can also easily create a counter, counting up or down.
+
+```js
+await BLOCK_COUNTER({
+  message: "My message [count] to go",
+  increment: 1,
+  start: 0,
+  end: 100,
+  interval: 10,
+});
+```
+
+`[count]` will be replaced by the current value.
+
+Make sure to use the Counter in an async function otherwise it will just add it to the end of your log.
+
+**Multiple messages**
+The counter also accepts multiple messages, which means you can change the message on any step. Make sure the amount of messages is equal to the number of steps, which is calculated by your start and end and includes 0. So, from 0 to 5 is 6 steps (0,1,2,3,4,5,6), so you also need to have 6 messages. If you don't, the default `message` will be used.
+
+```js
+await BLOCK_COUNTER({
+  messages: [
+    `Starting with [count]`,
+    `And this is [count]`,
+    `still [count] to go`,
+    `now about [count]`,
+    `what a joy..:)`,
+    `finally [count]`,
+  ],
+  start: 5,
+  end: 0,
+  increment: 1,
+  interval: 1000,
+});
+```
+
+### BLOCK_LOADER
+
+```bash
+     ┃        100%  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         ┃
+```
+
 ### Customizing
 
 There are few things which can be easily customized. The border type and the color of the borders.
@@ -139,8 +206,8 @@ To give the borders another color you pass an object to the function with the se
 
 ```js
 const settings = {
-	borderType: "double",
-	borderColor: "blue",
+  borderType: "double",
+  borderColor: "blue",
 };
 
 log.BLOCK_START("My Text", settings);

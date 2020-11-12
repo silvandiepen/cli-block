@@ -65,7 +65,7 @@ exports.repeat = (num, value = null) => {
     }
     return values.join("");
 };
-exports.stylelizeValue = (value) => {
+exports.stylizeValue = (value) => {
     let stringValue = "";
     // Empty string
     if (value == null)

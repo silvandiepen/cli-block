@@ -5,6 +5,10 @@ export interface SettingsType {
     indentBlock: number;
     prefix: string;
     newLine: boolean;
+    autoSpace: boolean;
+    tableHeader: boolean;
+    tableSpace: boolean;
+    padding: number;
 }
 export interface SettingsArgType {
     borderType?: string;
@@ -13,4 +17,8 @@ export interface SettingsArgType {
     indentBlock?: number;
     prefix?: string;
     newLine?: boolean;
+    autoSpace?: boolean;
+    tableHeader?: boolean;
+    tableSpace?: boolean;
+    padding?: number;
 }

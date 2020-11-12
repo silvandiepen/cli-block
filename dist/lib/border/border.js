@@ -3,12 +3,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const settings_1 = require("../settings/settings");
+const settings_1 = require("../settings");
 const kleur_1 = __importDefault(require("kleur"));
 const borderCharacters = {
     single: {
-        line: "━",
+        startLine: "━",
+        endLine: "━",
         midLine: "─",
+        midBreakTop: "┬",
+        midBreakBottom: "┴",
         side: "┃",
         topStart: "┏",
         topEnd: "┓",
@@ -18,8 +21,11 @@ const borderCharacters = {
         midEnd: "┨",
     },
     double: {
-        line: "═",
+        startLine: "═",
+        endLine: "═",
         midLine: "─",
+        midBreakTop: "┬",
+        midBreakBottom: "┴",
         side: "║",
         topStart: "╔",
         topEnd: "╗",
@@ -28,19 +34,30 @@ const borderCharacters = {
         midStart: "╟",
         midEnd: "╢",
     },
+    fat: {
+        startLine: "▘",
+        endLine: "▗",
+        midLine: "▄",
+        midBreakTop: "┬",
+        midBreakBottom: "┴",
+        side: "▞",
+        topStart: "▛",
+        topEnd: "▜",
+        bottomStart: "▙",
+        bottomEnd: "▟",
+        midStart: "▄",
+        midEnd: "▄",
+    },
 };
-exports.border = (type, settings = settings_1.defaultSettings) => {
-    settings = Object.assign(Object.assign({}, settings_1.defaultSettings), settings);
+exports.border = (type, settings = {}) => {
+    const s = settings_1.useSettings(settings);
     let char = "";
-    if (borderCharacters[settings.borderType] &&
-        borderCharacters[settings.borderType][type])
-        char = borderCharacters[settings.borderType][type];
-    else if (borderCharacters[settings_1.defaultSettings.borderType][type])
-        char = borderCharacters[settings_1.defaultSettings.borderType][type];
+    if (borderCharacters[s.borderType][type])
+        char = borderCharacters[s.borderType][type];
     else
         return "";
-    if (kleur_1.default[settings.borderColor])
-        char = kleur_1.default[settings.borderColor](char);
+    if (kleur_1.default[s.borderColor])
+        char = kleur_1.default[s.borderColor](char);
     return char;
 };
 //# sourceMappingURL=border.js.map

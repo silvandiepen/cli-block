@@ -55,7 +55,7 @@ export const repeat = (num, value = null) => {
   return values.join("");
 };
 
-export const stylelizeValue = (
+export const stylizeValue = (
   value: string | number | boolean | string[] | object
 ) => {
   let stringValue = "";

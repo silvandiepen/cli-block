@@ -1,31 +1,55 @@
 import { border } from "./border";
 
-test("Border Default", () => {
-	// Assert
-	expect(border("line")).toBe("\u001b[2m━\u001b[22m");
+// describe("Default borders", () => {
+//   // Assert
+//   let settings = {};
+//   it("should render a midline, without color", () => {
+//     expect(border("midLine", settings)).toBe("─");
+//   });
+//   it("should render a midline, without color", () => {
+//     expect(border("startLine", settings)).toBe("━");
+//   });
+//   it("should render a midline, without color", () => {
+//     expect(border("endLine", settings)).toBe("━");
+//   });
+// });
+
+describe("Default borders", () => {
+  // Assert
+  let settings = { borderColor: "yellow" };
+  //   it("should render a midline, without color", () => {
+  //     expect(border("midLine", settings)).toBe("─");
+  //   });
+  //   it("should render a midline, without color", () => {
+  //     expect(border("startLine", settings)).toBe("━");
+  //   });
+  it("should render a midline, without color", () => {
+    console.log(border("endLine", settings).toString());
+    expect(border("endLine", settings)).toBe("━");
+  });
 });
 
-test("Border, with default setting", () => {
-	// Assert
-	expect(border("midLine", { borderType: "single" })).toBe(
-		"\u001b[2m─\u001b[22m"
-	);
-});
+// test("Border, with default setting", () => {
+//   // Assert
+//   expect(border("startLine")).toBe("\u001b[2m─\u001b[22m");
+//   expect(border("midLine")).toBe("\u001b[2m─\u001b[22m");
+//   expect(border("endLine")).toBe("\u001b[2m─\u001b[22m");
+// });
 
-test("Border, with alternate setting", () => {
-	expect(border("topEnd", { borderType: "double" })).toBe(
-		"\u001b[2m╗\u001b[22m"
-	);
-	expect(border("midStart", { borderType: "double" })).toBe(
-		"\u001b[2m╟\u001b[22m"
-	);
-});
+// test("Border, with alternate setting", () => {
+//   expect(border("topEnd", { borderType: "double" })).toBe(
+//     "\u001b[2m╗\u001b[22m"
+//   );
+//   expect(border("midStart", { borderType: "double" })).toBe(
+//     "\u001b[2m╟\u001b[22m"
+//   );
+// });
 
-test("Border, non existing type", () => {
-	expect(border("Something")).toBe("");
-});
-test("Border, non existing setting, returns the default", () => {
-	expect(border("midStart", { borderType: "cringly" })).toBe(
-		"\u001b[2m┠\u001b[22m"
-	);
-});
+// test("Border, non existing type", () => {
+//   expect(border("Something")).toBe("");
+// });
+// test("Border, non existing setting, returns the default", () => {
+//   expect(border("midStart", { borderType: "cringly" })).toBe(
+//     "\u001b[2m┠\u001b[22m"
+//   );
+// });

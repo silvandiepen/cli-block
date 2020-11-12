@@ -1,13 +1,12 @@
-import { SettingsArgType } from "../types";
-export declare const FRAME_WIDTH: number;
-export declare const PADDING: number;
-export declare const CONTENT_WIDTH: number;
+import { SettingsArgType, CounterOptions, LoaderOptions } from "../types";
+export declare const BLOCK_LOADER: (args?: LoaderOptions, settings?: SettingsArgType) => Promise<void>;
+export declare const BLOCK_COUNTER: (args?: CounterOptions, settings?: SettingsArgType) => Promise<void>;
 export declare const CLEAR: () => void;
 export declare const NEW_LINE: () => boolean;
 export declare const RENEW_LINE: (msg: string) => void;
 export declare const START: (msg: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE: (msg?: string | string[], settings?: SettingsArgType) => void;
-export declare const EMPTY: (msg: string, settings?: SettingsArgType) => void;
+export declare const EMPTY: (msg?: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_ROW_LINE: (arr: any[], settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE_SUCCESS: (msg: string, settings?: SettingsArgType) => void;
 export declare const BLOCK_LINE_ERROR: (msg: string, settings?: SettingsArgType) => void;
@@ -19,6 +18,7 @@ interface SettingsConfig {
     exclude?: string[];
     include?: string[];
 }
+export declare const BLOCK_TABLE: (table: any[], settings?: SettingsArgType) => Promise<void>;
 export declare const BLOCK_JSON: (obj: any, settings?: SettingsArgType) => Promise<void>;
 export declare const BLOCK_SETTINGS: (obj: any, settings?: SettingsArgType, config?: SettingsConfig) => Promise<void>;
 export declare const BLOCK_WARNINGS: (warning: any, settings?: SettingsArgType) => boolean;
