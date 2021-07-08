@@ -32,8 +32,12 @@ export const CREATE_BLOCK_SETTINGS = async (
 
     if (error) styledValue = `${red("×")} ${styledValue}`;
 
+    console.log(config);
     if (!config.exclude.includes(value)) {
-      if (config.include.length > 0 && config.include.includes(value)) {
+      if (
+        (config.include.length > 0 && config.include.includes(value)) ||
+        !config.include.length
+      ) {
         settingLines.push(`${bold(value)}${spaces(20, value)}${styledValue}`);
       }
     }
