@@ -32,7 +32,6 @@ export const CREATE_BLOCK_SETTINGS = async (
 
     if (error) styledValue = `${red("×")} ${styledValue}`;
 
-    console.log(config);
     if (!config.exclude.includes(value)) {
       if (
         (config.include.length > 0 && config.include.includes(value)) ||
