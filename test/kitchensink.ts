@@ -49,9 +49,9 @@ const show = async () => {
   BLOCK_MID("default settings");
   await BLOCK_SETTINGS(defaultSettings);
   BLOCK_MID("default table");
-  BLOCK_TABLE(TABLE_EXAMPLE);
+  await BLOCK_TABLE(TABLE_EXAMPLE);
   BLOCK_MID("Full width, headerless table");
-  BLOCK_TABLE(TABLE_EXAMPLE, {
+  await BLOCK_TABLE(TABLE_EXAMPLE, {
     tableHeader: false,
     tableSpace: false,
     padding: 0,

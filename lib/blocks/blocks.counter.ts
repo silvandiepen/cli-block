@@ -1,12 +1,16 @@
-import { SettingsArgType, CounterOptions } from "../types";
+import { SettingsArgType, CounterOptions, LoggerType } from "../types";
 import { defaultSettings } from "../settings";
-import { CLEAR } from "../util";
+import { CLEAR, LOGG } from "../util";
 import { BLOCK_LINE } from "./blocks.line";
 
 export const BLOCK_COUNTER = async (
   args: CounterOptions = {},
   settings: SettingsArgType = defaultSettings
 ): Promise<void> => {
+  if (settings.logger == LoggerType.CONSOLE) {
+    LOGG("Counter does not Work with Console.log");
+    return;
+  }
   const config: CounterOptions = {
     message: "My message [count] to go",
     increment: 1,

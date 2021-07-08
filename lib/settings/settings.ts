@@ -1,5 +1,5 @@
 import { BorderType, BorderColor } from "../border/border.model";
-import { SettingsType, SettingsArgType } from "../types";
+import { SettingsType, SettingsArgType, LoggerType } from "../types";
 
 export const defaultSettings: SettingsType = {
   borderType: BorderType.single,
@@ -12,6 +12,8 @@ export const defaultSettings: SettingsType = {
   tableHeader: true,
   tableSpace: true,
   padding: -1,
+  // logger: process.stdout.write.bind(process.stdout),
+  logger: LoggerType.STDOUT,
 };
 
 let cliSettings = {};

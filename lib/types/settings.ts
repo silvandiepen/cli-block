@@ -1,5 +1,9 @@
 import { BorderType, BorderColor } from "../../lib/border/border.model";
 
+export enum LoggerType {
+  STDOUT = "stdout",
+  CONSOLE = "console",
+}
 export interface SettingsType {
   borderType: BorderType;
   borderColor: BorderColor;
@@ -11,6 +15,7 @@ export interface SettingsType {
   tableHeader: boolean;
   tableSpace: boolean;
   padding: number;
+  logger: LoggerType;
 }
 export interface SettingsArgType {
   borderType?: BorderType;
@@ -23,6 +28,7 @@ export interface SettingsArgType {
   tableHeader?: boolean;
   tableSpace?: boolean;
   padding?: number;
+  logger?: LoggerType;
 }
 
 export interface SettingsConfig {

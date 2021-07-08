@@ -1,12 +1,17 @@
-import { SettingsArgType, LoaderOptions } from "../types";
+import { SettingsArgType, LoaderOptions, LoggerType } from "../types";
 import { defaultSettings, getContentWidth } from "../settings";
-import { spacedText, repeat, NEW_LINE, CLEAR } from "../util";
+import { spacedText, repeat, NEW_LINE, CLEAR, LOGG } from "../util";
 import { BLOCK_LINE } from "./blocks.line";
 
 export const BLOCK_LOADER = async (
   args: LoaderOptions = {},
   settings: SettingsArgType = defaultSettings
 ): Promise<void> => {
+  if (settings.logger === LoggerType.CONSOLE) {
+    LOGG("Loader does not Work with Console.log");
+    return;
+  }
+
   let config = {
     message: "[percentage] [loader]",
     increment: 1,

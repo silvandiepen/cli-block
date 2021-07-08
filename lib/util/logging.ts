@@ -1,16 +1,22 @@
 import readline from "readline";
-import { SettingsArgType } from "../types";
+import { LoggerType, SettingsArgType } from "../types";
 import { defaultSettings, useSettings } from "../settings";
-import { promisify } from ".";
+import { promisify } from "../util";
 
 export const LOGG = (
   v: string = "",
   settings: SettingsArgType = defaultSettings
 ) => {
-  settings = useSettings(settings);
-  if (settings.newLine)
-    v ? process.stdout.write(v + "\n") : process.stdout.write("\n");
-  else v ? process.stdout.write(v) : process.stdout.write("");
+  const { newLine, logger } = useSettings(settings);
+
+  switch (logger) {
+    case LoggerType.CONSOLE:
+      console.log(v);
+      break;
+    case LoggerType.STDOUT:
+      process.stdout.write(newLine ? v + "\n" : v);
+      break;
+  }
 };
 
 export const CLEAR = () => {
