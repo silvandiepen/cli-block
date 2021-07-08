@@ -34,4 +34,5 @@ export interface SettingsArgType {
 export interface SettingsConfig {
   exclude?: string[];
   include?: string[];
+  spaced?: boolean;
 }

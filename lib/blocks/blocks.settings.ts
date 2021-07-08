@@ -20,6 +20,8 @@ export const CREATE_BLOCK_SETTINGS = async (
   let settingLines = [];
   let lines: string[] = [];
 
+  config = { exclude: [], include: [], spaced: true, ...config };
+
   await asyncForEach(Object.keys(obj), (value: string) => {
     let styledValue = stylizeValue(obj[value]);
     let error: boolean = false;
@@ -30,20 +32,18 @@ export const CREATE_BLOCK_SETTINGS = async (
 
     if (error) styledValue = `${red("×")} ${styledValue}`;
 
-    if (
-      (config && config.exclude && !config.exclude.includes(value)) ||
-      !config ||
-      (!config.exclude && !config.include) ||
-      (config && config.include && config.include.includes(value))
-    )
-      settingLines.push(`${bold(value)}${spaces(20, value)}${styledValue}`);
+    if (!config.exclude.includes(value)) {
+      if (config.include.length > 0 && config.include.includes(value)) {
+        settingLines.push(`${bold(value)}${spaces(20, value)}${styledValue}`);
+      }
+    }
   });
 
-  lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
+  config.spaced && lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
   settingLines.forEach((line) => {
     lines.push(CREATE_BLOCK_LINE(line, settings)[0]);
   });
-  lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
+  config.spaced && lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
 
   return lines;
 };
