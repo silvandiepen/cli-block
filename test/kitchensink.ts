@@ -12,13 +12,13 @@ import {
   BLOCK_TABLE,
   BLOCK_COUNTER,
   BLOCK_LOADER,
-} from "../lib";
-
+} from "../lib/blocks";
+import { BorderColor, BorderType } from "../lib/border/border.model";
 import { defaultSettings } from "../lib/settings/";
 
 let cliSettings = {
-  borderColor: "yellow",
-  borderType: "fat",
+  borderColor: BorderColor.yellow,
+  borderType: BorderType.fat,
 };
 
 const JSON_EXAMPLE = {

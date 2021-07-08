@@ -1,6 +1,8 @@
+import { BorderType, BorderColor } from "../../lib/border/border.model";
+
 export interface SettingsType {
-  borderType: string;
-  borderColor: string;
+  borderType: BorderType;
+  borderColor: BorderColor;
   frameWidth: number;
   indentBlock: number;
   prefix: string;
@@ -11,8 +13,8 @@ export interface SettingsType {
   padding: number;
 }
 export interface SettingsArgType {
-  borderType?: string;
-  borderColor?: string;
+  borderType?: BorderType;
+  borderColor?: BorderColor;
   frameWidth?: number;
   indentBlock?: number;
   prefix?: string;
@@ -21,4 +23,9 @@ export interface SettingsArgType {
   tableHeader?: boolean;
   tableSpace?: boolean;
   padding?: number;
+}
+
+export interface SettingsConfig {
+  exclude?: string[];
+  include?: string[];
 }

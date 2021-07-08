@@ -1,5 +1,8 @@
 // Logging Helpers
 import stringWidth from "mono-str-width";
+
+export const strWidth = stringWidth;
+
 import { red, blue, green, italic, yellow } from "kleur";
 
 export const asyncForEach = async (array, callback) => {
@@ -113,4 +116,10 @@ export const breakText = (value: string, width: number) => {
     });
     return sentences;
   } else return [value];
+};
+
+export const promisify = async (func: any) => {
+  await Promise.resolve(func).then(function () {
+    return;
+  });
 };

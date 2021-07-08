@@ -1,39 +1,40 @@
 {
-	"name": "cli-block",
-	"version": "1.2.3",
-	"description": "Create nice looking CLI Blocks",
-	"main": "dist/index.js",
-	"scripts": {
-		"test": "npm run build && jest",
-		"dev": "tsc -w",
-		"build": "tsc"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+ssh://git@github.com/silvandiepen/cli-block.git"
-	},
-	"keywords": [
-		"Cli",
-		"Block",
-		"Logging"
-	],
-	"author": "Sil van Diepen",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/silvandiepen/cli-block/issues"
-	},
-	"homepage": "https://github.com/silvandiepen/cli-block#readme",
-	"dependencies": {
-		"cli-highlight": "^2.1.4",
-		"kleur": "^3.0.3",
-		"mono-str-width": "^1.0.0",
-		"window-size": "^1.1.1"
-	},
-	"devDependencies": {
-		"@types/jest": "^25.2.1",
-		"@types/node": "^13.13.29",
-		"jest": "^25.2.7",
-		"ts-jest": "^25.3.1",
-		"typescript": "^3.8.3"
-	}
+  "name": "cli-block",
+  "version": "1.2.3",
+  "description": "Create nice looking CLI Blocks",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm run build && jest",
+    "test:kitchensink": "node dist/test/kitchensink.js",
+    "dev": "tsc -w",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/silvandiepen/cli-block.git"
+  },
+  "keywords": [
+    "Cli",
+    "Block",
+    "Logging"
+  ],
+  "author": "Sil van Diepen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/silvandiepen/cli-block/issues"
+  },
+  "homepage": "https://github.com/silvandiepen/cli-block#readme",
+  "dependencies": {
+    "cli-highlight": "^2.1.11",
+    "kleur": "^4.1.4",
+    "mono-str-width": "^1.0.1",
+    "window-size": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.0.1",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  }
 }

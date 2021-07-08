@@ -128,4 +128,9 @@ exports.breakText = (value, width) => {
     else
         return [value];
 };
+exports.promisify = (func) => __awaiter(void 0, void 0, void 0, function* () {
+    yield Promise.resolve(func).then(function () {
+        return;
+    });
+});
 //# sourceMappingURL=helpers.js.map

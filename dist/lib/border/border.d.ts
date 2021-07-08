@@ -1,2 +1,3 @@
 import { SettingsArgType } from "../types";
-export declare const border: (type: string, settings?: SettingsArgType) => string;
+import { BorderElement } from "./border.model";
+export declare const border: (type: BorderElement, settings?: SettingsArgType) => string;

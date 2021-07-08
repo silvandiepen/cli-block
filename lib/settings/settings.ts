@@ -1,7 +1,9 @@
+import { BorderType, BorderColor } from "../border/border.model";
 import { SettingsType, SettingsArgType } from "../types";
+
 export const defaultSettings: SettingsType = {
-  borderType: "single",
-  borderColor: "dim",
+  borderType: BorderType.single,
+  borderColor: BorderColor.dim,
   frameWidth: 80,
   indentBlock: 5,
   prefix: "",

@@ -9,3 +9,4 @@ export declare const stylizeValue: (value: string | number | boolean | object | 
 export declare const centerText: (value: string, num: number) => string;
 export declare const hello: (arg?: string) => Promise<string>;
 export declare const breakText: (value: string, width: number) => any[];
+export declare const promisify: (func: any) => Promise<void>;

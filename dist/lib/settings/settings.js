@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const border_model_1 = require("../border/border.model");
 exports.defaultSettings = {
-    borderType: "single",
-    borderColor: "dim",
+    borderType: border_model_1.BorderType.single,
+    borderColor: border_model_1.BorderColor.dim,
     frameWidth: 80,
     indentBlock: 5,
     prefix: "",

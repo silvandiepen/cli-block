@@ -51,11 +51,8 @@ const borderCharacters = {
 };
 exports.border = (type, settings = {}) => {
     const s = settings_1.useSettings(settings);
-    let char = "";
-    if (borderCharacters[s.borderType][type])
-        char = borderCharacters[s.borderType][type];
-    else
-        return "";
+    let char = borderCharacters[s.borderType][type] || "";
+    // console.log(s);
     if (kleur_1.default[s.borderColor])
         char = kleur_1.default[s.borderColor](char);
     return char;
