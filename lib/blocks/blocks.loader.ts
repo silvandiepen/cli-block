@@ -1,14 +1,14 @@
-import { SettingsArgType, LoaderOptions, LoggerType } from "../types";
-import { defaultSettings, getContentWidth } from "../settings";
-import { spacedText, repeat, NEW_LINE, CLEAR, LOGG } from "../util";
-import { BLOCK_LINE } from "./blocks.line";
+import { LoggerSettings, LoaderOptions, LoggerType } from "../types";
+import { getContentWidth } from "../settings";
+import { spacedText, repeat, newLine, clear, logger } from "../util";
+import { blockLine } from "./blocks.line";
 
-export const BLOCK_LOADER = async (
+export const blockLoader = async (
   args: LoaderOptions = {},
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): Promise<void> => {
   if (settings.logger === LoggerType.CONSOLE) {
-    LOGG("Loader does not Work with Console.log");
+    logger("Loader does not Work with Console.log");
     return;
   }
 
@@ -51,7 +51,7 @@ export const BLOCK_LOADER = async (
   };
 
   const loaderAction = () => {
-    CLEAR();
+    clear();
 
     const loader = loadBar();
     const percentage = `${i}%`;
@@ -60,7 +60,7 @@ export const BLOCK_LOADER = async (
       .replace("[loader]", loader)
       .replace("[percentage]", spacedText(4, percentage));
     i = countDown ? i - config.increment : i + config.increment;
-    BLOCK_LINE(message, {
+    blockLine(message, {
       ...settings,
       newLine: false,
     });
@@ -74,7 +74,7 @@ export const BLOCK_LOADER = async (
       const isEnding = countDown ? i >= config.end - 1 : i >= config.end + 1;
 
       if (isEnding) {
-        NEW_LINE();
+        newLine();
         resolve();
         clearInterval(count);
       }

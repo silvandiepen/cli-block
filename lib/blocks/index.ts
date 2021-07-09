@@ -1,7 +1,7 @@
 export * from "./blocks";
 export * from "./blocks.model";
 export * from "./blocks.counter";
-export * from "./blocks.end";
+export * from "./blocks.footer";
 export * from "./blocks.json";
 export * from "./blocks.line-message";
 export * from "./blocks.line";
@@ -9,5 +9,7 @@ export * from "./blocks.loader";
 export * from "./blocks.mid";
 export * from "./blocks.row-line";
 export * from "./blocks.settings";
-export * from "./blocks.start";
+export * from "./blocks.header";
 export * from "./blocks.table";
+export * from "./blocks.start";
+export * from "./blocks.full";

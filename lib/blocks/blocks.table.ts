@@ -1,17 +1,17 @@
 import { bold } from "kleur";
 
-import { SettingsArgType } from "../types";
+import { LoggerSettings } from "../types";
 import { border } from "../border";
 import { BorderElement } from "../border/border.model";
-import { useSettings, defaultSettings, getContentWidth } from "../settings";
-import { spacedText, stylizeValue, LOGG } from "../util";
-import { CREATE_BLOCK_LINE } from "./blocks.line";
+import { useSettings, getContentWidth } from "../settings";
+import { spacedText, stylizeValue, logger } from "../util";
+import { createBlockLine } from "./blocks.line";
 
-export const CREATE_BLOCK_TABLE = async (
+export const createBlockTable = async (
   table: any[],
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): Promise<string[]> => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
 
   const getTableWidth = (table: any[]): number => {
     let height = 1;
@@ -21,8 +21,7 @@ export const CREATE_BLOCK_TABLE = async (
     return height;
   };
 
-  const width =
-    Math.floor(getContentWidth(settings) / getTableWidth(table)) - 2;
+  const width = Math.floor(getContentWidth(cfg) / getTableWidth(table)) - 2;
 
   // Check if all tables
 
@@ -30,8 +29,8 @@ export const CREATE_BLOCK_TABLE = async (
     typeof item == "string" ? (item = [item]) : (item = item)
   );
 
-  settings.tableSpace && (table = [[], ...table, []]);
-  settings.tableHeader && table.splice(2, 0, []);
+  cfg.tableSpace && (table = [[], ...table, []]);
+  cfg.tableHeader && table.splice(2, 0, []);
   // for (let r = 0; r < table.length; r++) {
 
   table = table.map((row) => {
@@ -45,30 +44,27 @@ export const CREATE_BLOCK_TABLE = async (
     );
   });
 
-  settings.tableHeader &&
+  cfg.tableHeader &&
     (table[1] = table[1].map((item) => (item = `${bold(item)}`)));
 
   let lines = [];
   table.forEach((row) => {
     lines.push(
-      CREATE_BLOCK_LINE(
-        row.join(` ${border(BorderElement.side, settings)} `),
-        settings
-      )
+      createBlockLine(row.join(` ${border(BorderElement.side, cfg)} `), cfg)
     );
   });
   return lines;
 };
 
-export const BLOCK_TABLE = async (
+export const blockTable = async (
   table: any[],
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): Promise<void> => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
 
-  const lines = await CREATE_BLOCK_TABLE(table, settings);
+  const lines = await createBlockTable(table, cfg);
 
   lines.forEach((line) => {
-    LOGG(line, settings);
+    logger(line, cfg);
   });
 };

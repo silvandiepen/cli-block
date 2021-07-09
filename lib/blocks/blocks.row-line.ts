@@ -1,17 +1,17 @@
-import { SettingsArgType } from "../types";
+import { LoggerSettings } from "../types";
 import { useSettings, defaultSettings, getContentWidth } from "../settings";
-import { LOGG, spacedText, toStringValue } from "../util";
-import { CREATE_BLOCK_LINE } from "./blocks.line";
+import { logger, spacedText, toStringValue } from "../util";
+import { createBlockLine } from "./blocks.line";
 /*
 
   BLOCK ROW LINE
 
 */
-export const CREATE_BLOCK_ROW_LINE = (
+export const createBlockRowLine = (
   arr: any[],
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
 
   let str = "";
   arr = arr.map((item) => toStringValue(item));
@@ -21,11 +21,11 @@ export const CREATE_BLOCK_ROW_LINE = (
     str = str + spacedText(COLUMN_WIDTH, item.toString());
   });
 
-  return CREATE_BLOCK_LINE(str);
+  return createBlockLine(str);
 };
 
-export const BLOCK_ROW_LINE = (
+export const blockRowLine = (
   arr: Array<any>,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): void =>
-  CREATE_BLOCK_ROW_LINE(arr, settings).forEach((line) => LOGG(line, settings));
+  createBlockRowLine(arr, settings).forEach((line) => logger(line, settings));

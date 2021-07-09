@@ -1,13 +1,16 @@
 import readline from "readline";
-import { LoggerType, SettingsArgType } from "../types";
-import { defaultSettings, useSettings } from "../settings";
+
+import { LoggerSettings, LoggerType } from "../types/settings";
+import { useSettings } from "../settings";
 import { promisify } from "../util";
 
-export const LOGG = (
+export const logger = (
   v: string = "",
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ) => {
-  const { newLine, logger } = useSettings(settings);
+  const { newLine, logger, logLevel, logOutputLevel } = useSettings(settings);
+
+  if (logOutputLevel < logLevel && logOutputLevel && logLevel) return;
 
   switch (logger) {
     case LoggerType.CONSOLE:
@@ -19,22 +22,21 @@ export const LOGG = (
   }
 };
 
-export const CLEAR = () => {
+export const clear = () => {
   process.stdout.clearLine(null);
   process.stdout.cursorTo(0);
 };
 
-export const NEW_LINE = () => process.stdout.write("\n");
-export const ASYNC_NEW_LINE = async () => await promisify(NEW_LINE as Function);
+export const newLine = () => process.stdout.write("\n");
+export const asyncNewLine = async () => await promisify(newLine as Function);
 
-export const RENEW_LINE = (msg: string): void => {
+export const renewLine = (msg: string): void => {
   readline.cursorTo(process.stdout, 0);
   process.stdout.write(`${msg}`);
 };
 
-export const EMPTY = (
-  msg: string = "",
-  settings: SettingsArgType = defaultSettings
-) => {
-  LOGG(null, settings);
+export const createEmpty = () => {
+  return "";
 };
+export const empty = (settings: Partial<LoggerSettings> = {}) =>
+  logger(createEmpty(), settings);

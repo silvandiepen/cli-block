@@ -10,6 +10,10 @@ export enum BorderColor {
   yellow = "yellow",
   green = "green",
   blue = "blue",
+  magenta = "magenta",
+  black = "black",
+  white = "white",
+  gray = "gray",
 }
 
 export enum BorderElement {

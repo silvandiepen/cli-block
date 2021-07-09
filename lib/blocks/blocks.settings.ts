@@ -1,21 +1,16 @@
 import { bold, red } from "kleur";
 
-import {
-  useSettings,
-  SettingsArgType,
-  defaultSettings,
-  SettingsConfig,
-} from "../settings";
-import { CREATE_BLOCK_LINE } from "./blocks.line";
-import { asyncForEach, stylizeValue, spaces, LOGG } from "../util";
+import { useSettings, LoggerSettings, SettingsConfig } from "../settings";
+import { createBlockLine } from "./blocks.line";
+import { asyncForEach, stylizeValue, spaces, logger } from "../util";
 
 // Auto Settings display
-export const CREATE_BLOCK_SETTINGS = async (
+export const createBlockSettings = async (
   obj: any,
-  settings: SettingsArgType = defaultSettings,
+  settings: Partial<LoggerSettings> = {},
   config: SettingsConfig | null = null
 ): Promise<string[]> => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
 
   let settingLines = [];
   let lines: string[] = [];
@@ -42,20 +37,20 @@ export const CREATE_BLOCK_SETTINGS = async (
     }
   });
 
-  config.spaced && lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
+  config.spaced && lines.push(createBlockLine(null, settings)[0]);
   settingLines.forEach((line) => {
-    lines.push(CREATE_BLOCK_LINE(line, settings)[0]);
+    lines.push(createBlockLine(line, settings)[0]);
   });
-  config.spaced && lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
+  config.spaced && lines.push(createBlockLine(null, settings)[0]);
 
   return lines;
 };
 
-export const BLOCK_SETTINGS = async (
+export const blockSettings = async (
   obj: any,
-  settings: SettingsArgType = defaultSettings,
+  settings: Partial<LoggerSettings> = {},
   config: SettingsConfig | null = null
 ): Promise<void> => {
-  const lines = await CREATE_BLOCK_SETTINGS(obj, settings, config);
-  lines.forEach((line) => LOGG(line, settings));
+  const lines = await createBlockSettings(obj, settings, config);
+  lines.forEach((line) => logger(line, settings));
 };

@@ -9,7 +9,6 @@ export interface CounterOptions {
 
 export interface LoaderOptions {
   message?: string;
-  length?: number;
   increment?: number;
   start?: number;
   end?: number;

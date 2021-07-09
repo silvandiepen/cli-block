@@ -1,33 +1,28 @@
-// import { red, yellow, green, bold } from "kleur";
-
-import { SettingsArgType } from "../types";
+import { LoggerSettings } from "../types";
 import { BlockType } from "./blocks.model";
-import { defaultSettings, useSettings } from "../settings";
 
+import { logger } from "../util";
+import { createBlockLine } from "./blocks.line";
+import { createBlockRowLine } from "./blocks.row-line";
+import { createBlockHeader } from "./blocks.header";
+import { createBlockMid } from "./blocks.mid";
+import { createBlockFooter } from "./blocks.footer";
+import { createBlockTable } from "./blocks.table";
+import { createBlockJson } from "./blocks.json";
+import { createBlockSettings } from "./blocks.settings";
 import {
-  CREATE_BLOCK_LINE,
-  CREATE_BLOCK_ROW_LINE,
-  CREATE_BLOCK_LINE_SUCCESS,
-  CREATE_BLOCK_LINE_ERROR,
-  CREATE_BLOCK_LINE_WARNING,
-  CREATE_BLOCK_START,
-  CREATE_BLOCK_END,
-  CREATE_BLOCK_MID,
-  CREATE_BLOCK_JSON,
-  CREATE_BLOCK_TABLE,
-  CREATE_BLOCK_SETTINGS,
-  CREATE_BLOCK_ERRORS,
-  CREATE_BLOCK_WARNINGS,
-} from "./";
-import { LOGG } from "../util";
+  createBlockLineError,
+  createBlockLineSuccess,
+  createBlockLineWarning,
+  createBlockErrors,
+  createBlockWarnings,
+} from "./blocks.line-message";
 
-export const CREATE_BLOCK = async (
+export const createBlock = async (
   blockType: BlockType,
   content: any,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): Promise<string[]> => {
-  settings = useSettings(settings);
-
   let lines: string[] = [];
 
   switch (blockType) {
@@ -38,54 +33,54 @@ export const CREATE_BLOCK = async (
     //   BLOCK_COUNTER(content, settings);
     //   break;
     case BlockType.LINE:
-      lines = CREATE_BLOCK_LINE(content, settings);
+      lines = createBlockLine(content, settings);
       break;
     case BlockType.ROW_LINE:
-      lines = CREATE_BLOCK_ROW_LINE(content, settings);
+      lines = createBlockRowLine(content, settings);
       break;
     case BlockType.LINE_SUCCESS:
-      lines = CREATE_BLOCK_LINE_SUCCESS(content, settings);
+      lines = createBlockLineSuccess(content, settings);
       break;
     case BlockType.LINE_ERROR:
-      lines = CREATE_BLOCK_LINE_ERROR(content, settings);
+      lines = createBlockLineError(content, settings);
       break;
     case BlockType.LINE_WARNING:
-      lines = CREATE_BLOCK_LINE_WARNING(content, settings);
+      lines = createBlockLineWarning(content, settings);
       break;
     case BlockType.START:
-      lines = CREATE_BLOCK_START(content, settings);
+      lines = createBlockHeader(content, settings);
       break;
     case BlockType.END:
-      lines = CREATE_BLOCK_END(content, settings);
+      lines = createBlockFooter(content, settings);
       break;
     case BlockType.MID:
-      lines = CREATE_BLOCK_MID(content, settings);
+      lines = createBlockMid(content, settings);
       break;
     case BlockType.TABLE:
-      lines = await CREATE_BLOCK_TABLE(content, settings);
+      lines = await createBlockTable(content, settings);
       break;
     case BlockType.JSON:
-      lines = await CREATE_BLOCK_JSON(content, settings);
+      lines = await createBlockJson(content, settings);
       break;
     case BlockType.SETTINGS:
-      lines = await CREATE_BLOCK_SETTINGS(content, settings);
+      lines = await createBlockSettings(content, settings);
       break;
     case BlockType.WARNINGS:
-      lines = CREATE_BLOCK_WARNINGS(content, settings);
+      lines = createBlockWarnings(content, settings);
       break;
     case BlockType.ERRORS:
-      lines = CREATE_BLOCK_ERRORS(content, settings);
+      lines = createBlockErrors(content, settings);
       break;
   }
 
   return lines;
 };
 
-export const BLOCK = async (
+export const block = async (
   blockType: BlockType,
   content: any,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): Promise<void> => {
-  const lines = await CREATE_BLOCK(blockType, content, settings);
-  lines.forEach((line) => LOGG(line, settings));
+  const lines = await createBlock(blockType, content, settings);
+  lines.forEach((line) => logger(line, settings));
 };

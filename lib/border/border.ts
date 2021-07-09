@@ -1,5 +1,5 @@
 import { useSettings } from "../settings";
-import { SettingsArgType } from "../types";
+import { LoggerSettings } from "../types";
 import kleur from "kleur";
 
 import { BorderCharacters, BorderElement } from "./border.model";
@@ -51,14 +51,13 @@ const borderCharacters: BorderCharacters = {
 
 export const border = (
   type: BorderElement,
-  settings: SettingsArgType = {}
+  settings: Partial<LoggerSettings> = {}
 ): string => {
-  const s = useSettings(settings);
-  let char = borderCharacters[s.borderType][type] || "";
+  const cfg = useSettings(settings);
 
-  // console.log(s);
+  let char = borderCharacters[cfg.borderType][type] || "";
 
-  if (kleur[s.borderColor]) char = kleur[s.borderColor](char);
+  if (kleur[cfg.borderColor]) char = kleur[cfg.borderColor](char);
 
   return char;
 };

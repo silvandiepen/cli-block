@@ -1,15 +1,15 @@
-import {
-  BLOCK_START,
-  BLOCK_LINE,
-  CREATE_BLOCK_LINE_SUCCESS,
-  BLOCK_LINE_SUCCESS,
-  BLOCK,
-  CREATE_BLOCK,
-  CREATE_BLOCK_START,
-  CREATE_BLOCK_LINE,
-} from "./";
+import { dim, green } from "kleur";
 
-import { dim, green, yellow, red } from "kleur";
+import {
+  blockHeader,
+  blockLine,
+  createBlockLineSuccess,
+  blockLineSuccess,
+  block,
+  createBlock,
+  createBlockHeader,
+  createBlockLine,
+} from "./";
 import { BlockType } from "./blocks.model";
 
 const stdOutSpy = jest.spyOn(process.stdout, "write").mockImplementation();
@@ -26,7 +26,7 @@ describe("BlockLine", () => {
       "┃"
     )}`;
 
-    expect(CREATE_BLOCK_LINE()).toEqual([expected]);
+    expect(createBlockLine()).toEqual([expected]);
   });
 
   it("Should Log", () => {
@@ -37,7 +37,7 @@ describe("BlockLine", () => {
       "┃"
     )}\n`;
 
-    BLOCK_LINE();
+    blockLine();
 
     expect(process.stdout.write).toHaveBeenCalledWith(expected);
   });
@@ -55,7 +55,7 @@ describe("BlockLine - With text", () => {
       "┃"
     )}`;
 
-    expect(CREATE_BLOCK_LINE("test")).toEqual([expected]);
+    expect(createBlockLine("test")).toEqual([expected]);
   });
 
   it("Should Log", () => {
@@ -67,7 +67,7 @@ describe("BlockLine - With text", () => {
       "┃"
     )}\n`;
 
-    BLOCK_LINE("test");
+    blockLine("test");
 
     expect(process.stdout.write).toHaveBeenCalledWith(expected);
   });
@@ -82,14 +82,14 @@ describe("Block Start", () => {
     const expected = [
       "     \u001b[2m┏\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┓\u001b[22m",
     ];
-    expect(CREATE_BLOCK_START()).toEqual(expected);
+    expect(createBlockHeader()).toEqual(expected);
   });
 
   it("Should Log", () => {
     const expected =
       "     \u001b[2m┏\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┓\u001b[22m\n";
 
-    BLOCK_START();
+    blockHeader();
 
     expect(process.stdout.write).toHaveBeenCalledWith(expected);
   });
@@ -108,7 +108,7 @@ describe("Block Line Types", () => {
         "┃"
       )}`,
     ];
-    expect(CREATE_BLOCK_LINE_SUCCESS("My Victory")).toEqual(expected);
+    expect(createBlockLineSuccess("My Victory")).toEqual(expected);
   });
 
   it("Should Log - Success", () => {
@@ -118,7 +118,7 @@ describe("Block Line Types", () => {
       "┃"
     )}\n`;
 
-    BLOCK_LINE_SUCCESS("My Victory");
+    blockLineSuccess("My Victory");
 
     expect(process.stdout.write).toHaveBeenCalledWith(expected);
   });
@@ -136,7 +136,7 @@ describe("Blocks", () => {
       "┃"
     )}`;
 
-    const result = await CREATE_BLOCK(BlockType.LINE, "test");
+    const result = await createBlock(BlockType.LINE, "test");
 
     expect(result).toEqual([expected]);
   });
@@ -148,7 +148,7 @@ describe("Blocks", () => {
       "┃"
     )}\n`;
 
-    BLOCK(BlockType.LINE, "test");
+    block(BlockType.LINE, "test");
 
     expect(process.stdout.write).toHaveBeenCalledWith(expected);
   });

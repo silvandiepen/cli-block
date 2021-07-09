@@ -6,9 +6,9 @@ import { BorderElement } from "../border/border.model";
 import { bold } from "kleur";
 import { createBlockLine } from "./blocks.line";
 
-// A Mid Block Line
-export const createBlockMid = (
-  txt = null,
+// Closing Block
+export const createBlockFooter = (
+  txt: string | null = null,
   settings: Partial<LoggerSettings> = {}
 ): string[] => {
   const cfg = useSettings(settings);
@@ -16,36 +16,40 @@ export const createBlockMid = (
   let lines: string[] = [];
 
   cfg.autoSpace && lines.push(createBlockLine(null, cfg)[0]);
-
   if (txt)
     lines.push(
-      `${spaces(cfg.indentBlock)}${border(BorderElement.midStart, cfg)}${repeat(
+      `${spaces(cfg.indentBlock)}${border(
+        BorderElement.bottomStart,
+        cfg
+      )}${repeat(
         Math.floor(getFrameWidth(cfg) / 3),
-        border(BorderElement.midLine, cfg)
+        border(BorderElement.endLine, cfg)
       )}${centerText(
         bold(txt),
         getFrameWidth(cfg) - Math.floor(getFrameWidth(cfg) / 3) * 2
       )}${repeat(
         Math.floor(getFrameWidth(cfg) / 3),
-        `${border(BorderElement.midLine, settings)}`
-      )}${border(BorderElement.midEnd, settings)}`
+        `${border(BorderElement.endLine, cfg)}`
+      )}${border(BorderElement.bottomEnd, cfg)}`
     );
   else
     lines.push(
-      `${spaces(cfg.indentBlock)}${border(BorderElement.midStart, cfg)}${repeat(
+      `${spaces(cfg.indentBlock)}${border(
+        BorderElement.bottomStart,
+        cfg
+      )}${repeat(
         getFrameWidth(cfg),
-        border(BorderElement.midLine, cfg)
-      )}${border(BorderElement.midEnd, cfg)}`
+        `${border(BorderElement.endLine, cfg)}`
+      )}${border(BorderElement.bottomEnd, cfg)}`
     );
-
-  cfg.autoSpace && lines.push(createBlockLine(null, cfg)[0]);
 
   return lines;
 };
-export const blockMid = (
+
+export const blockFooter = (
   txt = null,
   settings: Partial<LoggerSettings> = {}
 ) => {
-  let lines = createBlockMid(txt, settings);
+  let lines = createBlockFooter(txt, settings);
   lines.forEach((line) => logger(line, settings));
 };

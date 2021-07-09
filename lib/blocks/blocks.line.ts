@@ -1,52 +1,45 @@
-import { SettingsArgType } from "../types";
+import { LoggerSettings } from "../types";
 import { border } from "../border";
 import { BorderElement } from "../border/border.model";
 import {
   useSettings,
-  defaultSettings,
   getContentWidth,
   getPadding,
   getFrameWidth,
 } from "../settings";
 
-import { breakText, spaces, spacedText, strWidth, LOGG } from "../util";
+import { breakText, spaces, spacedText, strWidth, logger } from "../util";
 
-export const CREATE_BLOCK_LINE = (
+export const createBlockLine = (
   msg: string | null | Array<string> = null,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
   let lines = [];
 
   if (msg !== null) {
-    if (typeof msg == "string") msg = breakText(msg, getContentWidth(settings));
+    if (typeof msg == "string") msg = breakText(msg, getContentWidth(cfg));
 
     msg.forEach((txt, i) => {
       txt =
         i == 0
-          ? `${settings.prefix ? settings.prefix + " " : ""}${txt}`
-          : `${
-              settings.prefix ? spaces(strWidth(settings.prefix)) + " " : ""
-            }${txt}`;
+          ? `${cfg.prefix ? cfg.prefix + " " : ""}${txt}`
+          : `${cfg.prefix ? spaces(strWidth(cfg.prefix)) + " " : ""}${txt}`;
 
       lines.push(
-        spaces(settings.indentBlock) +
-          border(BorderElement.side, settings) +
-          spaces(getPadding(settings)) +
-          spacedText(getContentWidth(settings), txt) +
-          spaces(getPadding(settings)) +
-          border(BorderElement.side, settings)
+        spaces(cfg.indentBlock) +
+          border(BorderElement.side, cfg) +
+          spaces(getPadding(cfg)) +
+          spacedText(getContentWidth(cfg), txt) +
+          spaces(getPadding(cfg)) +
+          border(BorderElement.side, cfg)
       );
     });
   } else {
     lines = [
-      `${spaces(settings.indentBlock)}${border(
-        BorderElement.side,
-        settings
-      )}${spaces(getFrameWidth(settings))}${border(
-        BorderElement.side,
-        settings
-      )}`,
+      `${spaces(cfg.indentBlock)}${border(BorderElement.side, cfg)}${spaces(
+        getFrameWidth(cfg)
+      )}${border(BorderElement.side, cfg)}`,
     ];
   }
   return lines;
@@ -57,15 +50,13 @@ export const CREATE_BLOCK_LINE = (
     BLOCK LINE
   
   */
-export const BLOCK_LINE = (
+export const blockLine = (
   msg: string | null | Array<string> = null,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): void => {
-  settings = useSettings(settings);
-
-  const lines = CREATE_BLOCK_LINE(msg, settings);
+  const lines = createBlockLine(msg, settings);
 
   lines.forEach((txt) => {
-    LOGG(txt, settings);
+    logger(txt, settings);
   });
 };

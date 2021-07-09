@@ -1,9 +1,9 @@
 import { green, red, yellow } from "kleur";
 
-import { SettingsArgType } from "../types";
-import { useSettings, defaultSettings } from "../settings";
-import { LOGG } from "../util";
-import { CREATE_BLOCK_LINE, CREATE_BLOCK_MID, CREATE_BLOCK_END } from "./";
+import { LoggerSettings } from "../types";
+import { useSettings } from "../settings";
+import { logger } from "../util";
+import { createBlockLine, createBlockMid, createBlockFooter } from "./";
 /*
 
   BLOCK LINES SUCCESS / ERROR / WARNING
@@ -11,85 +11,88 @@ import { CREATE_BLOCK_LINE, CREATE_BLOCK_MID, CREATE_BLOCK_END } from "./";
 */
 
 // lINE With auto checkmark for success
-export const CREATE_BLOCK_LINE_SUCCESS = (
+export const createBlockLineSuccess = (
   msg: string,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] =>
-  CREATE_BLOCK_LINE(msg, { ...useSettings(settings), prefix: green("✔") });
+  createBlockLine(msg, { ...useSettings(settings), prefix: green("✔") });
 
-export const BLOCK_LINE_SUCCESS = (
+export const blockLineSuccess = (
   msg: string,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ) => {
-  CREATE_BLOCK_LINE_SUCCESS(msg, settings).forEach((txt) =>
-    LOGG(txt, settings)
-  );
+  createBlockLineSuccess(msg, settings).forEach((txt) => logger(txt, settings));
 };
 
 // LINE with auto X for errors
-export const CREATE_BLOCK_LINE_ERROR = (
+export const createBlockLineError = (
   msg: string,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] =>
-  CREATE_BLOCK_LINE(msg, { ...useSettings(settings), prefix: red("×") });
+  createBlockLine(msg, { ...useSettings(settings), prefix: red("×") });
 
-export const BLOCK_LINE_ERROR = (
+export const blockLineError = (
   msg: string,
-  settings: SettingsArgType = defaultSettings
-) => {
-  CREATE_BLOCK_LINE_ERROR(msg, settings).forEach((txt) => LOGG(txt, settings));
-};
+  settings: Partial<LoggerSettings> = {}
+) =>
+  createBlockLineError(msg, settings).forEach((txt) => logger(txt, settings));
 
 // LINE with auto ! for warnings
-export const CREATE_BLOCK_LINE_WARNING = (
+export const createBlockLineWarning = (
   msg: string,
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] =>
-  CREATE_BLOCK_LINE(msg, { ...useSettings(settings), prefix: yellow("!") });
+  createBlockLine(msg, { ...useSettings(settings), prefix: yellow("!") });
 
-export const BLOCK_LINE_WARNING = (
+export const blockLineWarning = (
   msg: string,
-  settings: SettingsArgType = defaultSettings
-) => {
-  CREATE_BLOCK_LINE_WARNING(msg, settings).forEach((txt) =>
-    LOGG(txt, settings)
-  );
-};
+  settings: Partial<LoggerSettings> = {}
+) =>
+  createBlockLineWarning(msg, settings).forEach((txt) => logger(txt, settings));
 
-export const CREATE_BLOCK_WARNINGS = (
+export const createBlockWarnings = (
   warning: string[],
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
 
   if (!warning || warning.length < 1) return [];
 
   let lines: string[] = [];
 
-  lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
-  lines.push(CREATE_BLOCK_MID(`${yellow("! Warnings")}`, settings)[0]);
+  lines.push(createBlockLine(null, cfg)[0]);
+  lines.push(createBlockMid(`${yellow("! Warnings")}`, cfg)[0]);
   warning.forEach((error) => {
-    lines.push(CREATE_BLOCK_LINE_WARNING(error, settings)[0]);
+    lines.push(createBlockLineWarning(error, cfg)[0]);
   });
   return lines;
 };
+export const blockWarnings = (
+  msg: string[],
+  settings: Partial<LoggerSettings> = {}
+) => createBlockWarnings(msg, settings).forEach((txt) => logger(txt, settings));
 
-export const CREATE_BLOCK_ERRORS = (
+export const createBlockErrors = (
   error: string[],
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): string[] => {
-  settings = useSettings(settings);
+  const cfg = useSettings(settings);
 
   if (!error || error.length < 1) return [];
 
   let lines: string[] = [];
 
-  lines.push(CREATE_BLOCK_LINE(null, settings)[0]);
-  lines.push(CREATE_BLOCK_MID(`${red("× Errors")}`, settings)[0]);
+  lines.push(createBlockLine(null, cfg)[0]);
+  lines.push(createBlockMid(`${red("× Errors")}`, cfg)[0]);
   error.forEach((error) => {
-    lines.push(CREATE_BLOCK_LINE_ERROR(error, settings)[0]);
+    lines.push(createBlockLineError(error, cfg)[0]);
   });
-  lines.push(CREATE_BLOCK_END(null, settings)[0]);
+  lines.push(createBlockFooter(null, cfg)[0]);
 
   return lines;
 };
+
+export const blockErrors = (
+  msg: string[],
+  settings: Partial<LoggerSettings> = {}
+) => createBlockErrors(msg, settings).forEach((txt) => logger(txt, settings));

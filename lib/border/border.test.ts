@@ -7,6 +7,7 @@ describe("Default borders", () => {
   // Assert
   // let settings = { borderColor: "yellow" };
   let settings = {};
+
   it("should render a midLine, without color", () => {
     expect(border(BorderElement.midLine, settings)).toBe(dim("─"));
   });

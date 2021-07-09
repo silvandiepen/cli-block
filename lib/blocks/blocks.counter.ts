@@ -1,14 +1,13 @@
-import { SettingsArgType, CounterOptions, LoggerType } from "../types";
-import { defaultSettings } from "../settings";
-import { CLEAR, LOGG } from "../util";
-import { BLOCK_LINE } from "./blocks.line";
+import { LoggerSettings, CounterOptions, LoggerType } from "../types";
+import { clear, logger } from "../util";
+import { blockLine } from "./blocks.line";
 
-export const BLOCK_COUNTER = async (
+export const blockCounter = async (
   args: CounterOptions = {},
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): Promise<void> => {
-  if (settings.logger == LoggerType.CONSOLE) {
-    LOGG("Counter does not Work with Console.log");
+  if (settings.logger === LoggerType.CONSOLE) {
+    logger("Counter does not Work with Console.log");
     return;
   }
   const config: CounterOptions = {
@@ -29,20 +28,20 @@ export const BLOCK_COUNTER = async (
     (config.start > config.end
       ? config.start - config.end + 1
       : config.end - config.start + 1) / config.increment;
-  const doSteps = messageCount > 0 && messageCount == stepsCount;
+  const doSteps = messageCount > 0 && messageCount === stepsCount;
   const countDown = config.start > config.end;
 
   // Prepare action
   const counterAction = () => {
-    CLEAR();
+    clear();
 
     let message = doSteps
       ? config.messages[step].replace("[count]", i.toString())
       : config.message.replace("[count]", i.toString());
 
-    BLOCK_LINE(message, {
+    blockLine(message, {
       ...settings,
-      newLine: i == config.end,
+      newLine: i === config.end,
     });
 
     i = countDown ? i - config.increment : i + config.increment;
@@ -56,8 +55,8 @@ export const BLOCK_COUNTER = async (
       counterAction();
 
       const isEnding =
-        (countDown ? i == config.end - 1 : i == config.end + 1) ||
-        (doSteps && step == stepsCount);
+        (countDown ? i === config.end - 1 : i === config.end + 1) ||
+        (doSteps && step === stepsCount);
 
       if (isEnding) {
         // if (countDown) NEW_LINE();
