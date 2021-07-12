@@ -1,187 +1,155 @@
+import { dim, green } from "kleur";
+
 import {
-	BLOCK_START,
-	BLOCK_END,
-	// BLOCK_ERRORS,
-	BLOCK_LINE,
-	BLOCK_LINE_ERROR,
-	BLOCK_LINE_SUCCESS,
-	BLOCK_LINE_WARNING,
-	BLOCK_MID,
-	// BLOCK_ROW_LINE,
-	// BLOCK_SETTINGS,
-	// BLOCK_WARNINGS,
-} from "./blocks";
+  blockHeader,
+  blockLine,
+  createBlockLineSuccess,
+  blockLineSuccess,
+  block,
+  createBlock,
+  createBlockHeader,
+  createBlockLine,
+} from "./";
+import { BlockType } from "./blocks.model";
 
-beforeEach(() => {
-	jest.clearAllMocks();
+const stdOutSpy = jest.spyOn(process.stdout, "write").mockImplementation();
+
+describe("BlockLine", () => {
+  beforeEach(() => {
+    stdOutSpy.mockClear();
+  });
+
+  it("Should Render", () => {
+    const expected = `     ${dim(
+      "┃"
+    )}                                                                                ${dim(
+      "┃"
+    )}`;
+
+    expect(createBlockLine()).toEqual([expected]);
+  });
+
+  it("Should Log", () => {
+    process.stdout.write = jest.fn();
+    const expected = `     ${dim(
+      "┃"
+    )}                                                                                ${dim(
+      "┃"
+    )}\n`;
+
+    blockLine();
+
+    expect(process.stdout.write).toHaveBeenCalledWith(expected);
+  });
 });
 
-function mockToString(
-	str: string | any,
-	mock: boolean = false,
-	nth: number = 0,
-	log: boolean = false
-): string {
-	if (log) console.log("result", str.mock.calls[nth]);
-	if (mock) str = str.mock.calls[nth][0];
-	return str;
-}
+describe("BlockLine - With text", () => {
+  beforeEach(() => {
+    stdOutSpy.mockClear();
+  });
 
-test("BLOCK_START", () => {
-	// Arrange
-	const consoleSpy = jest.spyOn(console, "log");
+  it("Should Render", () => {
+    const expected = `     ${dim(
+      "┃"
+    )}        test                                                                    ${dim(
+      "┃"
+    )}`;
 
-	const expected = [
-		"     \u001b[2m┏\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┓\u001b[22m",
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-	];
+    expect(createBlockLine("test")).toEqual([expected]);
+  });
 
-	// Act
-	BLOCK_START();
+  it("Should Log", () => {
+    // const consoleSpy = jest.spyOn(console, "log");
+    process.stdout.write = jest.fn();
+    const expected = `     ${dim(
+      "┃"
+    )}        test                                                                    ${dim(
+      "┃"
+    )}\n`;
 
-	// Assert
-	expect(consoleSpy).toHaveBeenCalledTimes(2);
-	expect(mockToString(consoleSpy, true, 0)).toBe(expected[0]);
-	expect(mockToString(consoleSpy, true, 1)).toBe(expected[1]);
+    blockLine("test");
+
+    expect(process.stdout.write).toHaveBeenCalledWith(expected);
+  });
 });
 
-test("BLOCK_LINE - default", () => {
-	// Arrange
-	const blockLineTextSpy = jest.spyOn(console, "log");
-	const expected =
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m";
+describe("Block Start", () => {
+  beforeEach(() => {
+    stdOutSpy.mockClear();
+  });
 
-	// Act
-	BLOCK_LINE();
+  it("Should Render", () => {
+    const expected = [
+      "     \u001b[2m┏\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┓\u001b[22m",
+    ];
+    expect(createBlockHeader()).toEqual(expected);
+  });
 
-	// Assert
-	expect(blockLineTextSpy).toHaveBeenCalledTimes(1);
-	expect(mockToString(blockLineTextSpy, true)).toBe(expected);
+  it("Should Log", () => {
+    const expected =
+      "     \u001b[2m┏\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┓\u001b[22m\n";
+
+    blockHeader();
+
+    expect(process.stdout.write).toHaveBeenCalledWith(expected);
+  });
 });
 
-test("BLOCK_LINE - With text", () => {
-	// Arrange
-	const blockLineWithTextSpy = jest.spyOn(console, "log");
-	const expected =
-		"     \u001b[2m┃\u001b[22m        Lorem Default                                                           \u001b[2m┃\u001b[22m";
-	// Act
-	BLOCK_LINE("Lorem Default");
+describe("Block Line Types", () => {
+  beforeEach(() => {
+    stdOutSpy.mockClear();
+  });
 
-	// Assert
-	expect(blockLineWithTextSpy).toHaveBeenCalledTimes(1);
-	expect(mockToString(blockLineWithTextSpy, true)).toBe(expected);
+  it("Should Render - Success", () => {
+    const expected = [
+      `     ${dim("┃")}        ${green(
+        "✔"
+      )} My Victory                                                            ${dim(
+        "┃"
+      )}`,
+    ];
+    expect(createBlockLineSuccess("My Victory")).toEqual(expected);
+  });
+
+  it("Should Log - Success", () => {
+    const expected = `     ${dim("┃")}        ${green(
+      "✔"
+    )} My Victory                                                            ${dim(
+      "┃"
+    )}\n`;
+
+    blockLineSuccess("My Victory");
+
+    expect(process.stdout.write).toHaveBeenCalledWith(expected);
+  });
 });
 
-test("BLOCK_LINE_ERROR", () => {
-	// Arrange
-	const blockLineErrorSpy = jest.spyOn(console, "log");
-	const expected =
-		"     \u001b[2m┃\u001b[22m        \u001b[31m×\u001b[39m Lorem Error                                                           \u001b[2m┃\u001b[22m";
-	// Act
-	BLOCK_LINE_ERROR("Lorem Error");
+describe("Blocks", () => {
+  beforeEach(() => {
+    stdOutSpy.mockClear();
+  });
 
-	// Assert
-	expect(blockLineErrorSpy).toHaveBeenCalledTimes(1);
-	expect(mockToString(blockLineErrorSpy, true)).toBe(expected);
-});
+  it("Should Render - Block Line", async () => {
+    const expected = `     ${dim(
+      "┃"
+    )}        test                                                                    ${dim(
+      "┃"
+    )}`;
 
-test("BLOCK_LINE_SUCCESS", () => {
-	// Arrange
-	const blockLineSuccessSpy = jest.spyOn(console, "log");
-	const expected =
-		"     \u001b[2m┃\u001b[22m        \u001b[32m✔\u001b[39m Lorem Success                                                         \u001b[2m┃\u001b[22m";
-	// Act
-	BLOCK_LINE_SUCCESS("Lorem Success");
+    const result = await createBlock(BlockType.LINE, "test");
 
-	// Assert
-	expect(blockLineSuccessSpy).toHaveBeenCalledTimes(1);
-	expect(mockToString(blockLineSuccessSpy, true, 0, true)).toBe(expected);
-});
+    expect(result).toEqual([expected]);
+  });
 
-test("BLOCK_LINE_ERROR", () => {
-	// Arrange
-	const blockLineWarningSpy = jest.spyOn(console, "log");
-	const expected =
-		"     \u001b[2m┃\u001b[22m        \u001b[33m!\u001b[39m Lorem Warning                                                         \u001b[2m┃\u001b[22m"; // Act
-	BLOCK_LINE_WARNING("Lorem Warning");
+  it("Should Log - Block Line", () => {
+    const expected = `     ${dim(
+      "┃"
+    )}        test                                                                    ${dim(
+      "┃"
+    )}\n`;
 
-	// Assert
-	expect(blockLineWarningSpy).toHaveBeenCalledTimes(1);
-	expect(mockToString(blockLineWarningSpy, true, 0, true)).toBe(expected);
-});
+    block(BlockType.LINE, "test");
 
-test("BLOCK_MID", () => {
-	// Arrange
-	const consoleSpy = jest.spyOn(console, "log");
-
-	const expected = [
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-		"     \u001b[2m┠\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m┨\u001b[22m",
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-	];
-
-	// Act
-	BLOCK_MID();
-
-	// Assert
-	expect(consoleSpy).toHaveBeenCalledTimes(3);
-	expect(mockToString(consoleSpy, true, 0)).toBe(expected[0]);
-	expect(mockToString(consoleSpy, true, 1)).toBe(expected[1]);
-	expect(mockToString(consoleSpy, true, 2)).toBe(expected[2]);
-});
-
-test("BLOCK_MID - with text", () => {
-	// Arrange
-	const consoleSpy = jest.spyOn(console, "log");
-
-	const expected = [
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-		"     \u001b[2m┠\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m          \u001b[1mWith text\u001b[22m         \u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m─\u001b[22m\u001b[2m┨\u001b[22m",
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-	];
-
-	// Act
-	BLOCK_MID("With text");
-
-	// Assert
-	expect(consoleSpy).toHaveBeenCalledTimes(3);
-	expect(mockToString(consoleSpy, true, 0)).toBe(expected[0]);
-	expect(mockToString(consoleSpy, true, 1)).toBe(expected[1]);
-	expect(mockToString(consoleSpy, true, 2)).toBe(expected[2]);
-});
-
-test("BLOCK_END", () => {
-	// Arrange
-	const consoleSpy = jest.spyOn(console, "log");
-
-	const expected = [
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-		"     \u001b[2m┗\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┛\u001b[22m",
-	];
-
-	// Act
-	BLOCK_END();
-
-	// Assert
-	expect(consoleSpy).toHaveBeenCalledTimes(2);
-	expect(mockToString(consoleSpy, true, 0)).toBe(expected[0]);
-	expect(mockToString(consoleSpy, true, 1)).toBe(expected[1]);
-});
-
-test("BLOCK_END - with text", () => {
-	// Arrange
-	const consoleSpy = jest.spyOn(console, "log");
-
-	const expected = [
-		"     \u001b[2m┃\u001b[22m                                                                                \u001b[2m┃\u001b[22m",
-		"     \u001b[2m┗\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m          \u001b[1mWith text\u001b[22m         \u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m━\u001b[22m\u001b[2m┛\u001b[22m",
-	];
-
-	// Act
-	BLOCK_END("With text");
-
-	// Assert
-	expect(consoleSpy).toHaveBeenCalledTimes(2);
-	expect(mockToString(consoleSpy, true, 0)).toBe(expected[0]);
-	expect(mockToString(consoleSpy, true, 1)).toBe(expected[1]);
+    expect(process.stdout.write).toHaveBeenCalledWith(expected);
+  });
 });

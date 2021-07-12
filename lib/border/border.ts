@@ -1,8 +1,10 @@
 import { useSettings } from "../settings";
-import { SettingsArgType } from "../types";
+import { LoggerSettings } from "../types";
 import kleur from "kleur";
 
-const borderCharacters = {
+import { BorderCharacters, BorderElement } from "./border.model";
+
+const borderCharacters: BorderCharacters = {
   single: {
     startLine: "━",
     endLine: "━",
@@ -48,17 +50,14 @@ const borderCharacters = {
 };
 
 export const border = (
-  type: string,
-  settings: SettingsArgType = {}
+  type: BorderElement,
+  settings: Partial<LoggerSettings> = {}
 ): string => {
-  const s = useSettings(settings);
+  const cfg = useSettings(settings);
 
-  let char = "";
-  if (borderCharacters[s.borderType][type])
-    char = borderCharacters[s.borderType][type];
-  else return "";
+  let char = borderCharacters[cfg.borderType][type] || "";
 
-  if (kleur[s.borderColor]) char = kleur[s.borderColor](char);
+  if (kleur[cfg.borderColor]) char = kleur[cfg.borderColor](char);
 
   return char;
 };

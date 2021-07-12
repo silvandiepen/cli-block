@@ -1,55 +1,46 @@
 import { border } from "./border";
+import { BorderColor, BorderElement } from "./border.model";
 
-// describe("Default borders", () => {
-//   // Assert
-//   let settings = {};
-//   it("should render a midline, without color", () => {
-//     expect(border("midLine", settings)).toBe("─");
-//   });
-//   it("should render a midline, without color", () => {
-//     expect(border("startLine", settings)).toBe("━");
-//   });
-//   it("should render a midline, without color", () => {
-//     expect(border("endLine", settings)).toBe("━");
-//   });
-// });
+import { dim, red } from "kleur";
 
 describe("Default borders", () => {
   // Assert
-  let settings = { borderColor: "yellow" };
-  //   it("should render a midline, without color", () => {
-  //     expect(border("midLine", settings)).toBe("─");
-  //   });
-  //   it("should render a midline, without color", () => {
-  //     expect(border("startLine", settings)).toBe("━");
-  //   });
-  it("should render a midline, without color", () => {
-    console.log(border("endLine", settings).toString());
-    expect(border("endLine", settings)).toBe("━");
+  // let settings = { borderColor: "yellow" };
+  let settings = {};
+
+  it("should render a midLine, without color", () => {
+    expect(border(BorderElement.midLine, settings)).toBe(dim("─"));
+  });
+  it("should render a startLine, without color", () => {
+    expect(border(BorderElement.startLine, settings)).toBe(dim("━"));
+  });
+  it("should render a endLine, without color", () => {
+    expect(border(BorderElement.endLine, settings)).toBe(dim("━"));
   });
 });
 
-// test("Border, with default setting", () => {
-//   // Assert
-//   expect(border("startLine")).toBe("\u001b[2m─\u001b[22m");
-//   expect(border("midLine")).toBe("\u001b[2m─\u001b[22m");
-//   expect(border("endLine")).toBe("\u001b[2m─\u001b[22m");
-// });
-
-// test("Border, with alternate setting", () => {
-//   expect(border("topEnd", { borderType: "double" })).toBe(
-//     "\u001b[2m╗\u001b[22m"
-//   );
-//   expect(border("midStart", { borderType: "double" })).toBe(
-//     "\u001b[2m╟\u001b[22m"
-//   );
-// });
-
-// test("Border, non existing type", () => {
-//   expect(border("Something")).toBe("");
-// });
-// test("Border, non existing setting, returns the default", () => {
-//   expect(border("midStart", { borderType: "cringly" })).toBe(
-//     "\u001b[2m┠\u001b[22m"
-//   );
-// });
+describe("Default borders - without settings", () => {
+  it("should render a midline, without color", () => {
+    expect(border(BorderElement.midLine)).toBe(dim("─"));
+  });
+  it("should render a startLine, without color", () => {
+    expect(border(BorderElement.startLine)).toBe(dim("━"));
+  });
+  it("should render a endLine, without color", () => {
+    expect(border(BorderElement.endLine)).toBe(dim("━"));
+  });
+});
+describe("Red borders", () => {
+  let settings = {
+    borderColor: BorderColor.red,
+  };
+  it("should render a midline, red", () => {
+    expect(border(BorderElement.midLine, settings)).toBe(red("─"));
+  });
+  it("should render a startLine, red", () => {
+    expect(border(BorderElement.startLine, settings)).toBe(red("━"));
+  });
+  it("should render a endLine, red", () => {
+    expect(border(BorderElement.endLine, settings)).toBe(red("━"));
+  });
+});

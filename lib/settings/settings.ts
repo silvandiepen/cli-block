@@ -1,7 +1,9 @@
-import { SettingsType, SettingsArgType } from "../types";
-export const defaultSettings: SettingsType = {
-  borderType: "single",
-  borderColor: "dim",
+import { BorderType, BorderColor } from "../border/border.model";
+import { LoggerSettings, LoggerLevel, LoggerType } from "../types/settings";
+
+export const defaultSettings: LoggerSettings = {
+  borderType: BorderType.single,
+  borderColor: BorderColor.dim,
   frameWidth: 80,
   indentBlock: 5,
   prefix: "",
@@ -10,39 +12,37 @@ export const defaultSettings: SettingsType = {
   tableHeader: true,
   tableSpace: true,
   padding: -1,
+  logger: LoggerType.STDOUT,
+  logLevel: LoggerLevel.VERBOSE,
+  logOutputLevel: LoggerLevel.VERBOSE,
 };
 
-let cliSettings = {};
-
-export const useSettings = (settings: SettingsArgType): SettingsType => {
+export const useSettings = (
+  settings: Partial<LoggerSettings> = {}
+): LoggerSettings => {
   return {
     ...defaultSettings,
-    ...cliSettings,
     ...settings,
   };
 };
 
 export const getFrameWidth = (
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): number => {
-  settings = useSettings(settings);
-  return process.stdout.columns <
-    settings.frameWidth + settings.indentBlock * 2 + 2
-    ? process.stdout.columns - settings.indentBlock * 2
-    : settings.frameWidth;
+  const cfg = useSettings(settings);
+  return process.stdout.columns < cfg.frameWidth + cfg.indentBlock * 2 + 2
+    ? process.stdout.columns - cfg.indentBlock * 2
+    : cfg.frameWidth;
 };
 
-export const getPadding = (
-  settings: SettingsArgType = defaultSettings
-): number =>
+export const getPadding = (settings: Partial<LoggerSettings> = {}): number =>
   (settings = useSettings(settings)) && settings.padding > -1
     ? settings.padding
     : getFrameWidth(settings) / 10;
 
 export const getContentWidth = (
-  settings: SettingsArgType = defaultSettings
+  settings: Partial<LoggerSettings> = {}
 ): number => {
-  settings = useSettings(settings);
-
-  return getFrameWidth(settings) - getPadding(settings) * 2;
+  const cfg = useSettings(settings);
+  return getFrameWidth(cfg) - getPadding(cfg) * 2;
 };
