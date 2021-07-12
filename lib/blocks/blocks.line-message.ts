@@ -12,7 +12,7 @@ import { createBlockLine, createBlockMid, createBlockFooter } from "./";
 
 // lINE With auto checkmark for success
 export const createBlockLineSuccess = (
-  msg: string,
+  msg: string | string[],
   settings: Partial<LoggerSettings> = {}
 ): string[] =>
   createBlockLine(msg, { ...useSettings(settings), prefix: green("✔") });
@@ -26,7 +26,7 @@ export const blockLineSuccess = (
 
 // LINE with auto X for errors
 export const createBlockLineError = (
-  msg: string,
+  msg: string | string[],
   settings: Partial<LoggerSettings> = {}
 ): string[] =>
   createBlockLine(msg, { ...useSettings(settings), prefix: red("×") });
@@ -39,7 +39,7 @@ export const blockLineError = (
 
 // LINE with auto ! for warnings
 export const createBlockLineWarning = (
-  msg: string,
+  msg: string | string[],
   settings: Partial<LoggerSettings> = {}
 ): string[] =>
   createBlockLine(msg, { ...useSettings(settings), prefix: yellow("!") });
