@@ -1,3 +1,5 @@
+import { promises as fs } from "fs";
+
 import {
   blockLine,
   blockMid,
@@ -14,7 +16,6 @@ import {
   blockLoader,
   blockFull,
 } from "../lib/blocks";
-import { createBlockFull } from "../lib/blocks/blocks.full";
 import { BorderColor, BorderType } from "../lib/border/border.model";
 import { defaultSettings } from "../lib/settings/";
 
@@ -143,4 +144,7 @@ const full = async () => {
 (async () => {
   await show();
   full();
+
+  const createdError = await fs.readFile("test");
+  console.log(createdError);
 })();

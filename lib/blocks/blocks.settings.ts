@@ -10,12 +10,16 @@ export const createBlockSettings = async (
   settings: Partial<LoggerSettings> = {},
   config: SettingsConfig | null = null
 ): Promise<string[]> => {
-  const cfg = useSettings(settings);
-
   let settingLines = [];
   let lines: string[] = [];
 
-  config = { exclude: [], include: [], spaced: true, ...config };
+  config = {
+    exclude: [],
+    include: [],
+    spaced: true,
+    ...useSettings(settings),
+    ...config,
+  };
 
   await asyncForEach(Object.keys(obj), (value: string) => {
     let styledValue = stylizeValue(obj[value]);

@@ -11,8 +11,6 @@ export const createBlockRowLine = (
   arr: any[],
   settings: Partial<LoggerSettings> = {}
 ): string[] => {
-  const cfg = useSettings(settings);
-
   let str = "";
   arr = arr.map((item) => toStringValue(item));
   let COLUMN_WIDTH = Math.floor(getContentWidth(settings) / arr.length) - 1;

@@ -27,15 +27,16 @@ npm i cli-block
 And use it in your js file;
 
 ```js
+import { start } from "cli-block";
+
+start("CLI Blocks");
+
+// or 
+
 import * as log from "cli-block";
 
 log.START("CLI Blocks");
 
-// or 
- 
-import { start } from "cli-block";
-
-start("CLI Blocks");
 
 ```
 
