@@ -1,10 +1,11 @@
 import { bold } from "kleur";
+import { repeat } from "@sil/tools";
 
 import { LoggerSettings } from "../types";
 import { border } from "../border";
 import { BorderElement } from "../border/border.model";
 import { useSettings, getFrameWidth } from "../settings";
-import { spaces, repeat, centerText, logger } from "../util";
+import { spaces, centerText, logger } from "../util";
 
 // The Start block
 export const createBlockHeader = (

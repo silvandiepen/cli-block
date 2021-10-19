@@ -1,8 +1,9 @@
+import { asyncForEach } from "@sil/tools";
 import { bold, red } from "kleur";
 
 import { useSettings, LoggerSettings, SettingsConfig } from "../settings";
 import { createBlockLine } from "./blocks.line";
-import { asyncForEach, stylizeValue, spaces, logger } from "../util";
+import { stylizeValue, spaces, logger } from "../util";
 
 // Auto Settings display
 export const createBlockSettings = async (

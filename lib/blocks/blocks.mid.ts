@@ -1,9 +1,11 @@
+import { repeat } from "@sil/tools";
+import { bold } from "kleur";
+
 import { useSettings, getFrameWidth } from "../settings";
 import { LoggerSettings } from "../types";
-import { spaces, centerText, repeat, logger } from "../util";
+import { spaces, centerText, logger } from "../util";
 import { border } from "../border";
 import { BorderElement } from "../border/border.model";
-import { bold } from "kleur";
 import { createBlockLine } from "./blocks.line";
 
 // A Mid Block Line

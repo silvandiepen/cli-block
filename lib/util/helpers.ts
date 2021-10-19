@@ -1,15 +1,10 @@
 // Logging Helpers
 import stringWidth from "mono-str-width";
+import { toRoundNumber } from "@sil/tools";
 
 export const strWidth = stringWidth;
 
 import { red, blue, green, italic, yellow } from "kleur";
-
-export const asyncForEach = async (array, callback) => {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
-};
 
 export const objectToString = (obj: any) => {
   let str = "";
@@ -19,11 +14,6 @@ export const objectToString = (obj: any) => {
     str = str + `${blue(item)}${value} `;
   });
   return str;
-};
-export const toRoundNumber = (num: number, decimalPlaces: number = 2) => {
-  return Number(
-    Math.round(parseFloat(num + "e" + decimalPlaces)) + "e-" + decimalPlaces
-  ).toFixed(decimalPlaces);
 };
 
 export const toStringValue = (value: any) => {
@@ -48,14 +38,6 @@ export const spaces = (num: number, value = null) => {
 
 export const spacedText = (num: number, value: string) => {
   return `${value} ${spaces(num, stringWidth(toStringValue(value)) + 1)}`;
-};
-
-export const repeat = (num, value = null) => {
-  let values = [];
-  for (let i = 0; i < num; i++) {
-    values.push(value);
-  }
-  return values.join("");
 };
 
 export const stylizeValue = (
@@ -94,10 +76,6 @@ export const centerText = (value: string, num: number) => {
   return values.join("");
 };
 
-export const hello = async (arg = "") => {
-  return arg;
-};
-
 export const breakText = (value: string, width: number) => {
   if (typeof value !== "string") return value;
 
@@ -116,10 +94,4 @@ export const breakText = (value: string, width: number) => {
     });
     return sentences;
   } else return [value];
-};
-
-export const promisify = async (func: any) => {
-  await Promise.resolve(func).then(function () {
-    return;
-  });
 };

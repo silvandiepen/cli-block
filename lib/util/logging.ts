@@ -1,8 +1,8 @@
 import readline from "readline";
+import { promisify } from "@sil/tools";
 
 import { LoggerSettings, LoggerType } from "../types/settings";
 import { useSettings } from "../settings";
-import { promisify } from "../util";
 
 export const logger = (
   v: string = "",
