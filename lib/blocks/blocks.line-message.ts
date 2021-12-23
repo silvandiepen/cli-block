@@ -1,4 +1,4 @@
-import { green, red, yellow } from "kleur";
+import { green, red, yellow } from "../util";
 
 import { LoggerSettings } from "../types";
 import { useSettings } from "../settings";

@@ -4,7 +4,7 @@ import { toRoundNumber } from "@sil/tools";
 
 export const strWidth = stringWidth;
 
-import { red, blue, green, italic, yellow } from "kleur";
+import { red, blue, green, italic, yellow } from "../util";
 
 export const objectToString = (obj: any) => {
   let str = "";

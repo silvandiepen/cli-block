@@ -1,6 +1,6 @@
 import { useSettings } from "../settings";
 import { LoggerSettings } from "../types";
-import kleur from "kleur";
+import * as styles from "../util";
 
 import { BorderCharacters, BorderElement } from "./border.model";
 
@@ -57,7 +57,7 @@ export const border = (
 
   let char = borderCharacters[cfg.borderType][type] || "";
 
-  if (kleur[cfg.borderColor]) char = kleur[cfg.borderColor](char);
+  if (styles[cfg.borderColor]) char = styles[cfg.borderColor](char);
 
   return char;
 };

@@ -1,6 +1,6 @@
 import { asyncForEach } from "@sil/tools";
-import { bold, red } from "kleur";
 
+import { bold, red } from "../util";
 import { useSettings, LoggerSettings, SettingsConfig } from "../settings";
 import { createBlockLine } from "./blocks.line";
 import { stylizeValue, spaces, logger } from "../util";

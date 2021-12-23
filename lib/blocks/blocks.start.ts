@@ -1,5 +1,4 @@
-import { bold } from "kleur";
-
+import { bold } from "../util";
 import { LoggerSettings } from "../types";
 import { useSettings } from "../settings";
 import { spaces, logger, createEmpty } from "../util";

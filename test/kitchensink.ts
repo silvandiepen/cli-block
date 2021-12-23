@@ -54,11 +54,13 @@ const show = async () => {
   blockMid("default table");
   await blockTable(TABLE_EXAMPLE);
   blockMid("Full width, headerless table");
+
   await blockTable(TABLE_EXAMPLE, {
     tableHeader: false,
     tableSpace: false,
     padding: 0,
   });
+
   blockMid("Specials");
   blockLineError("An error");
   blockLineWarning("A warning");

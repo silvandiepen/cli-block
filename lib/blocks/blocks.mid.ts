@@ -1,6 +1,6 @@
 import { repeat } from "@sil/tools";
-import { bold } from "kleur";
 
+import { bold } from "../util";
 import { useSettings, getFrameWidth } from "../settings";
 import { LoggerSettings } from "../types";
 import { spaces, centerText, logger } from "../util";

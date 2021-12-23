@@ -5,7 +5,7 @@ import { LoggerSettings } from "../types";
 import { spaces, centerText, logger } from "../util";
 import { border } from "../border";
 import { BorderElement } from "../border/border.model";
-import { bold } from "kleur";
+import { bold } from "../util";
 import { createBlockLine } from "./blocks.line";
 
 // Closing Block

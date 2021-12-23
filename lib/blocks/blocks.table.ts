@@ -1,5 +1,4 @@
-import { bold } from "kleur";
-
+import { bold } from "../util";
 import { LoggerSettings } from "../types";
 import { border } from "../border";
 import { BorderElement } from "../border/border.model";
