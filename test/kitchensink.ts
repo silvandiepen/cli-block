@@ -145,6 +145,6 @@ const full = async () => {
   await show();
   full();
 
-  const createdError = await fs.readFile("test");
-  console.log(createdError);
+  // const createdError = await fs.readFile("test");
+  // console.log(createdError);
 })();
