@@ -1,7 +1,7 @@
 import { border } from "./border";
 import { BorderColor, BorderElement } from "./border.model";
 
-import { dim, red } from "kleur";
+import { dim, red } from "../util";
 
 describe("Default borders", () => {
   // Assert

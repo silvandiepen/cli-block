@@ -1,4 +1,4 @@
-import { dim, green } from "kleur";
+import { dim, green } from "../util";
 
 import {
   blockHeader,

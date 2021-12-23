@@ -1,3 +1,5 @@
+import { promises as fs } from "fs";
+
 import {
   blockLine,
   blockMid,
@@ -14,7 +16,6 @@ import {
   blockLoader,
   blockFull,
 } from "../lib/blocks";
-import { createBlockFull } from "../lib/blocks/blocks.full";
 import { BorderColor, BorderType } from "../lib/border/border.model";
 import { defaultSettings } from "../lib/settings/";
 
@@ -53,11 +54,13 @@ const show = async () => {
   blockMid("default table");
   await blockTable(TABLE_EXAMPLE);
   blockMid("Full width, headerless table");
+
   await blockTable(TABLE_EXAMPLE, {
     tableHeader: false,
     tableSpace: false,
     padding: 0,
   });
+
   blockMid("Specials");
   blockLineError("An error");
   blockLineWarning("A warning");
@@ -143,4 +146,7 @@ const full = async () => {
 (async () => {
   await show();
   full();
+
+  // const createdError = await fs.readFile("test");
+  // console.log(createdError);
 })();

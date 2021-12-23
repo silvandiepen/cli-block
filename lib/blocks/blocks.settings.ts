@@ -1,8 +1,9 @@
-import { bold, red } from "kleur";
+import { asyncForEach } from "@sil/tools";
 
+import { bold, red } from "../util";
 import { useSettings, LoggerSettings, SettingsConfig } from "../settings";
 import { createBlockLine } from "./blocks.line";
-import { asyncForEach, stylizeValue, spaces, logger } from "../util";
+import { stylizeValue, spaces, logger } from "../util";
 
 // Auto Settings display
 export const createBlockSettings = async (
@@ -10,12 +11,16 @@ export const createBlockSettings = async (
   settings: Partial<LoggerSettings> = {},
   config: SettingsConfig | null = null
 ): Promise<string[]> => {
-  const cfg = useSettings(settings);
-
   let settingLines = [];
   let lines: string[] = [];
 
-  config = { exclude: [], include: [], spaced: true, ...config };
+  config = {
+    exclude: [],
+    include: [],
+    spaced: true,
+    ...useSettings(settings),
+    ...config,
+  };
 
   await asyncForEach(Object.keys(obj), (value: string) => {
     let styledValue = stylizeValue(obj[value]);

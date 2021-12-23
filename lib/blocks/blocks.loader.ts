@@ -1,6 +1,8 @@
+import { repeat } from "@sil/tools";
+
 import { LoggerSettings, LoaderOptions, LoggerType } from "../types";
 import { getContentWidth } from "../settings";
-import { spacedText, repeat, newLine, clear, logger } from "../util";
+import { spacedText, newLine, clear, logger } from "../util";
 import { blockLine } from "./blocks.line";
 
 export const blockLoader = async (
