@@ -17,4 +17,6 @@ export interface LoaderOptions {
   width?: string | number;
   charFilled?: string;
   charUnfilled?: string;
+  newLine?: boolean;
+  clear?: boolean;
 }

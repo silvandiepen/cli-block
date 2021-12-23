@@ -309,3 +309,52 @@ With the above options it will look like;
 ```bash
      ┃        80 ////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\  of loader        ┃
 ```
+
+## Block Step Loader
+
+Practically the same loader, but can be triggered from outside. 
+
+
+```bash
+     ┃        100%  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         ┃
+```
+
+### Options
+
+| Argument     | Description                                                              | Example                           | Default                   |
+| ------------ | ------------------------------------------------------------------------ | --------------------------------- | ------------------------- |
+| message      | The string can ben changed in order to show another order or custom text | "[percentage] [loader] of loader" | `"[percentage] [loader]"` |
+| increment    | Size of every step taken                                                 | `10`                              | `1`                       |
+| step         | Define current step                                                      | `1`                               | `0`                       |
+| start        | Starting number                                                          | `100`                             | `0`                       |
+| end          | Ending number                                                            | `0`                               | `100`                     |
+| width        | Width used of box                                                        | `"100%"`                          | `"100%"`                  |
+| charFilled   | Character used for the loader done                                       | `/`                               | `▒`                       |
+| charUnfilled | Character used for the loader not done                                   | `\`                               | `░`                       |
+| clear        | Remove the loader when it's done.                                        | `false` loader will stay          | `true`                    |
+
+With the above options it will look like;
+
+```bash
+     ┃        80 ////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\  of loader        ┃
+```
+
+### Usage
+
+```js
+
+  const runs = 10;
+
+  for (let i = 0; i < runs; i++) {
+    const result = sass.compile(file); // Just an example function of something which takes its time
+
+    blockStepLoader({
+      message: `Run [step] [loader] [percentage]`,
+      width: "50%",
+      start: 0,
+      end: runs - 1,
+      step: i,
+    });
+  }
+
+  ```
