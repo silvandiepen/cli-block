@@ -35,7 +35,7 @@ start("CLI Blocks");
 
 import * as log from "cli-block";
 
-log.START("CLI Blocks");
+log.start("CLI Blocks");
 
 
 ```
@@ -51,7 +51,7 @@ const settings = {
   borderColor: "blue",
 };
 
-log.BLOCK_START("My Text", settings);
+log.start("My Text", settings);
 ```
 
 You will have to pass these settings to any occurence of a log.
@@ -140,3 +140,8 @@ export const defaultSettings: LoggerSettings = {
   logOutputLevel: LoggerLevel.VERBOSE,
 };
 ```
+
+### Logging
+
+There are 4 different levels of logging:
+

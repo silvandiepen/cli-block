@@ -15,6 +15,7 @@ import {
   blockCounter,
   blockLoader,
   blockFull,
+  blockStepLoader,
 } from "../lib/blocks";
 import { BorderColor, BorderType } from "../lib/border/border.model";
 import { defaultSettings } from "../lib/settings/";
@@ -128,6 +129,24 @@ const show = async () => {
     charFilled: "╱",
     charUnfilled: "╲",
   });
+
+  let i = 0;
+
+  const loaderInterval = setInterval(async () => {
+    await blockStepLoader({
+      message: "[loader] [percentage] to go",
+      width: "50",
+      start: 0,
+      end: 100,
+      step: i,
+    });
+    i++;
+
+    if (i - 1 == 100) {
+      clearInterval(loaderInterval);
+    }
+  }, 25);
+
   blockFooter();
 };
 
@@ -146,7 +165,4 @@ const full = async () => {
 (async () => {
   await show();
   full();
-
-  // const createdError = await fs.readFile("test");
-  // console.log(createdError);
 })();

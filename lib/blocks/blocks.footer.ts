@@ -2,10 +2,8 @@ import { repeat } from "@sil/tools";
 
 import { useSettings, getFrameWidth } from "../settings";
 import { LoggerSettings } from "../types";
-import { spaces, centerText, logger } from "../util";
-import { border } from "../border";
-import { BorderElement } from "../border/border.model";
-import { bold } from "../util";
+import { spaces, centerText, logger, bold } from "../util";
+import { border, BorderElement } from "../border";
 import { createBlockLine } from "./blocks.line";
 
 // Closing Block

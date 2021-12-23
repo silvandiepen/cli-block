@@ -11,6 +11,7 @@ export interface LoaderOptions {
   message?: string;
   increment?: number;
   start?: number;
+  step?: number;
   end?: number;
   interval?: number;
   width?: string | number;

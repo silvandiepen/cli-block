@@ -1,6 +1,5 @@
 import { LoggerSettings } from "../types";
-import { border } from "../border";
-import { BorderElement } from "../border/border.model";
+import { border, BorderElement } from "../border";
 import {
   useSettings,
   getContentWidth,

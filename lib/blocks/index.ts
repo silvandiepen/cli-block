@@ -6,6 +6,7 @@ export * from "./blocks.json";
 export * from "./blocks.line-message";
 export * from "./blocks.line";
 export * from "./blocks.loader";
+export * from "./blocks.step-loader";
 export * from "./blocks.mid";
 export * from "./blocks.row-line";
 export * from "./blocks.settings";

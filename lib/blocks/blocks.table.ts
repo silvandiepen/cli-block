@@ -1,7 +1,6 @@
 import { bold } from "../util";
 import { LoggerSettings } from "../types";
-import { border } from "../border";
-import { BorderElement } from "../border/border.model";
+import { border, BorderElement } from "../border";
 import { useSettings, getContentWidth } from "../settings";
 import { spacedText, stylizeValue, logger } from "../util";
 import { createBlockLine } from "./blocks.line";

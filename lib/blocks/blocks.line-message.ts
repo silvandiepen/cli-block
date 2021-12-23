@@ -1,8 +1,6 @@
-import { green, red, yellow } from "../util";
-
 import { LoggerSettings } from "../types";
 import { useSettings } from "../settings";
-import { logger } from "../util";
+import { green, red, yellow, logger } from "../util";
 import { createBlockLine, createBlockMid, createBlockFooter } from "./";
 /*
 
