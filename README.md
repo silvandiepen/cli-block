@@ -141,7 +141,7 @@ export const defaultSettings: LoggerSettings = {
 };
 ```
 
-### Logging
 
-There are 4 different levels of logging:
 
+
+[gist=2d9aff65094156a9f52f67594e8000d0]
