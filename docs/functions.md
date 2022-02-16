@@ -1,7 +1,12 @@
+---
+thumbnail: /assets/icon_functions.svg
+---
 
 # Functions
 
-Cli Blocks also exposes a set of functions used to create the blocks. These can be used to create your own type of blocks or just for other things.
+Cli Blocks also exposes a set of functions used to create the blocks. 
+
+These can be used to create your own type of blocks or just for other things.
 
 | function         | Arguments                    | Description                                                         |
 | ---------------- | ---------------------------- | ------------------------------------------------------------------- |

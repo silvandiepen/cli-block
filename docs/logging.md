@@ -1,5 +1,10 @@
+---
+thumbnail: /assets/icon_logging.svg
+---
 
 # Logging
+
+Logging by default is simple, but there are ways to manipulate or differentiate your logging per project on different levels.
 
 ## Logging Type
 

@@ -1,5 +1,10 @@
+---
+thumbnail: /assets/icon_blocks.svg
+---
+
 # Blocks 
 
+An overview of all the block types available in cli-block.
 
 ## Start
 
