@@ -1,3 +1,8 @@
+---
+projectTitle: CLI-Blocks
+hide: true
+---
+
 # CLI BLOCKS
 
 Create good looking blocks in your CLI
