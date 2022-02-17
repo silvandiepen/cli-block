@@ -1,5 +1,5 @@
 ---
-thumbnail: /assets/icon_logging.svg
+icon: /assets/icon_logging.svg
 ---
 
 # Logging

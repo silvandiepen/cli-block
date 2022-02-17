@@ -1,5 +1,5 @@
 ---
-thumbnail: /assets/icon_settings.svg
+icon: /assets/icon_settings.svg
 ---
 
 # Settings

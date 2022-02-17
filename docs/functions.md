@@ -1,5 +1,5 @@
 ---
-thumbnail: /assets/icon_functions.svg
+icon: /assets/icon_functions.svg
 ---
 
 # Functions

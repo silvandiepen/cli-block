@@ -1,6 +1,8 @@
 ---
+title: About
 projectTitle: CLI-Blocks
-hide: true
+projectLogo: assets/logo.svg
+projectStyle: /assets/custom.css
 ---
 
 # CLI BLOCKS

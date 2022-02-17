@@ -1,5 +1,6 @@
 ---
-thumbnail: /assets/icon_blocks.svg
+tags: documentation,custom
+icon: /assets/icon_blocks.svg
 ---
 
 # Blocks 

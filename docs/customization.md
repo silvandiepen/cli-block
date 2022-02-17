@@ -1,5 +1,7 @@
 ---
-thumbnail: /assets/icon_customizing.svg
+title: Customizing
+icon: /assets/icon_customizing.svg
+tags: documentation,custom
 ---
 
 # Customizing
