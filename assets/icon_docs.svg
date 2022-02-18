@@ -1,8 +1,8 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
 <style type="text/css">
-	.svg-docs-1{fill:none;stroke:var(--ol-foreground,currentColor);stroke-width:4;stroke-miterlimit:10;}
-	.svg-docs-2{fill:none;stroke:var(--ol-foreground,currentColor);stroke-width:2;stroke-miterlimit:10;}
+	.svg-docs-1{fill:none;stroke:currentColor;stroke-width:4;stroke-miterlimit:10;}
+	.svg-docs-2{fill:none;stroke:currentColor;stroke-width:2;stroke-miterlimit:10;}
 </style>
 		<g>
 			<path class="svg-docs-1" d="M96,28l-32,7.38L32,28c-2.21,0-4,1.79-4,4v50v14c0,2.21,1.79,4,4,4l32-10.62L96,100c2.21,0,4-1.79,4-4V82V32

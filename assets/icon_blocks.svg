@@ -1,7 +1,7 @@
 <svg
 	xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
 	<defs>
-		<style>.svg-blocks{fill:none;stroke:var(--ol-foreground,currentColor);stroke-miterlimit:10;stroke-width:4px;}</style>
+		<style>.svg-blocks{fill:none;stroke:currentColor;stroke-miterlimit:10;stroke-width:4px;}</style>
 	</defs>
 	<path class="svg-blocks" d="M100,46V32a4,4,0,0,0-4-4H32a4,4,0,0,0-4,4V46"/>
 	<path class="svg-blocks" d="M28,82V96a4,4,0,0,0,4,4H96a4,4,0,0,0,4-4V82"/>
