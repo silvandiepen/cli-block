@@ -1,6 +1,5 @@
 ---
-type: articles
-isArchive: true
+archive: articles
 menuChildren: true
 icon: /assets/icon_docs.svg
 ---

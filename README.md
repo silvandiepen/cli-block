@@ -1,7 +1,6 @@
 ---
 title: About
 projectTitle: CLI-Blocks
-projectLogo: assets/logo.svg
 projectStyle: /assets/custom.css
 ---
 
