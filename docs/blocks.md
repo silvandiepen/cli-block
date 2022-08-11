@@ -3,18 +3,17 @@ tags: documentation,custom
 icon: /assets/icon_blocks.svg
 ---
 
-# Blocks 
+# Blocks
 
 An overview of all the block types available in cli-block.
 
 ## Start
 
-__Usage__
+**Usage**
 
 ```js
 start("My Script title");
 ```
-
 
 ## Block Header
 
@@ -28,7 +27,7 @@ The start block, can have a title or just start a new block.
   ┏━━━━━━━━━━━━━━    Title    ━━━━━━━━━━━━━━┓
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockHeader();
@@ -64,7 +63,7 @@ The start block, can have a title or just start a new block.
   ┗━━━━━━━━━━━━━━    Title    ━━━━━━━━━━━━━━┛
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockFooter();
@@ -83,7 +82,7 @@ A basic line, can be used for empty lines or just basic text
   ┃     Some text                           ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockLine();
@@ -98,7 +97,7 @@ Takes an array and automatically spaces the values over a line. Can be used to c
   ┃     Atomatic     Spaced      Text       ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockRowLine(["Atomic", "Spaced", "Text"]);
@@ -112,13 +111,13 @@ Automatically adds a red x for the line
   ┃     × Something went wrong              ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockLineError("Something went wrong");
 ```
 
-## BLOCK_LINE_SUCCES
+## Block Line Success
 
 Automatically adds a green check for the line
 
@@ -126,10 +125,10 @@ Automatically adds a green check for the line
   ┃     ✔ This is right                     ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
-blockLineError("This is right");
+blockLineSuccess("This is right");
 ```
 
 ## Block Line Warning
@@ -140,7 +139,7 @@ Automatically adds a yellow warning sign for the line
   ┃     ! A warning message                 ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockLineWarning("A warning message");
@@ -154,13 +153,13 @@ Just an empty line.
 
 ```
 
-__Usage__
+**Usage**
 
 ```js
 empty();
 ```
 
-## BLOCK_SETTINGS
+## blockSettings
 
 Take an object and shows its values. Can be used for easily showing your settings in an object.
 
@@ -173,7 +172,7 @@ Take an object and shows its values. Can be used for easily showing your setting
   ┃                                         ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockSettings({
@@ -186,13 +185,35 @@ blockSettings({
 
 ### Options
 
-| Argument | Description                                                                        | example                         |
-| -------- | ---------------------------------------------------------------------------------- | ------------------------------- |
-| exclude  | Accepts an array of string where you can define keys not to be displayed           | `['hidden']`                    |
-| include  | Accepts an array of string where you can define all keys which should be displayed | `['src','dest','type','multi']` |
-| spaced   | by default the settings will display extra space around, this can be disabled      | `true`                          |
+| Argument     | Description                                                                        | example                         |
+| ------------ | ---------------------------------------------------------------------------------- | ------------------------------- |
+| exclude      | Accepts an array of string where you can define keys not to be displayed           | `['hidden']`                    |
+| include      | Accepts an array of string where you can define all keys which should be displayed | `['src','dest','type','multi']` |
+| margin       | by default the settings will display extra space around, this can be disabled      | `true`                          |
+| marginTop    | Just disable the margin on the top                                                 | `true`                          |
+| marginBottom | Just disable the margin on the bottom                                              | `true`                          |
+| header       | You can add a header to the settings                                               | `''`                            |
+| footer       | You can add a footer to the settings                                               | `''`                            |
 
-## BLOCK_JSON
+**Usage**
+
+```js
+blockSettings(
+  {
+    src: "/path/to/files",
+    dest: "/path/to/dir",
+    type: "json",
+    multi: false,
+  },
+  {}, // Empty object for the settings, which can be global.
+  {
+    header: "My Header",
+    footer: "My footer",
+  }
+);
+```
+
+## blockJson
 
 Throw in a JSON object or string and automatically show it as Json content.
 
@@ -213,7 +234,7 @@ Throw in a JSON object or string and automatically show it as Json content.
      ┃                                                                                ┃
 ```
 
-__Usage__
+**Usage**
 
 ```js
 blockJson({
@@ -241,11 +262,12 @@ A full simple block of text, just throw your text in and it will create the full
      ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
-
-__Usage__
+**Usage**
 
 ```js
-blockFull('Fusce interdum blandit ligula, eu ornare tellus convallis ut. Praesent ut elit tempor, luctus urna ac, mattis est. Donec tincidunt sollicitudin eleifend. Donec eu rutrum arcu. Pellentesque lobortis ante libero, vel ultrices mi cursus at')
+blockFull(
+  "Fusce interdum blandit ligula, eu ornare tellus convallis ut. Praesent ut elit tempor, luctus urna ac, mattis est. Donec tincidunt sollicitudin eleifend. Donec eu rutrum arcu. Pellentesque lobortis ante libero, vel ultrices mi cursus at"
+);
 ```
 
 ## Block Counter
@@ -292,7 +314,6 @@ await BLOCK_COUNTER({
 
 ## Block Loader
 
-
 ```bash
      ┃        100%  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         ┃
 ```
@@ -318,8 +339,7 @@ With the above options it will look like;
 
 ## Block Step Loader
 
-Practically the same loader, but can be triggered from outside. 
-
+Practically the same loader, but can be triggered from outside.
 
 ```bash
      ┃        100%  ▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒         ┃
@@ -348,19 +368,17 @@ With the above options it will look like;
 ### Usage
 
 ```js
+const runs = 10;
 
-  const runs = 10;
+for (let i = 0; i < runs; i++) {
+  const result = sass.compile(file); // Just an example function of something which takes its time
 
-  for (let i = 0; i < runs; i++) {
-    const result = sass.compile(file); // Just an example function of something which takes its time
-
-    blockStepLoader({
-      message: `Run [step] [loader] [percentage]`,
-      width: "50%",
-      start: 0,
-      end: runs - 1,
-      step: i,
-    });
-  }
-
-  ```
+  blockStepLoader({
+    message: `Run [step] [loader] [percentage]`,
+    width: "50%",
+    start: 0,
+    end: runs - 1,
+    step: i,
+  });
+}
+```

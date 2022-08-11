@@ -4,13 +4,15 @@ import { border, BorderElement } from "../border";
 import { useSettings, getContentWidth } from "../settings";
 import { spacedText, stylizeValue, logger } from "../util";
 import { createBlockLine } from "./blocks.line";
+import { useConfig } from "../settings/config";
 
 export const createBlockTable = async (
   table: any[],
   settings: Partial<LoggerSettings> = {},
   config: SettingsConfig | null = null
 ): Promise<string[]> => {
-  const cfg = useSettings(settings);
+  settings = useSettings(settings);
+  config = useConfig(config);
 
   const getTableWidth = (table: any[]): number => {
     let height = 1;
@@ -20,7 +22,8 @@ export const createBlockTable = async (
     return height;
   };
 
-  const width = Math.floor(getContentWidth(cfg) / getTableWidth(table)) - 2;
+  const width =
+    Math.floor(getContentWidth(settings) / getTableWidth(table)) - 2;
 
   // Check if all tables
 
@@ -28,8 +31,8 @@ export const createBlockTable = async (
     typeof item == "string" ? (item = [item]) : (item = item)
   );
 
-  cfg.tableSpace && (table = [[], ...table, []]);
-  cfg.tableHeader && table.splice(2, 0, []);
+  settings.tableSpace && (table = [[], ...table, []]);
+  settings.tableHeader && table.splice(2, 0, []);
   // for (let r = 0; r < table.length; r++) {
 
   table = table.map((row) => {
@@ -43,19 +46,26 @@ export const createBlockTable = async (
     );
   });
 
-  cfg.tableHeader &&
+  settings.tableHeader &&
     (table[1] = table[1].map((item) => (item = `${bold(item)}`)));
 
   let lines = [];
-  config.spaced && lines.push(createBlockLine(null, settings)[0]);
+  config.margin &&
+    config.marginTop &&
+    lines.push(createBlockLine(null, settings)[0]);
   config.header && lines.push(createBlockLine(config.header, settings)[0]);
   table.forEach((row) => {
     lines.push(
-      createBlockLine(row.join(` ${border(BorderElement.side, cfg)} `), cfg)
+      createBlockLine(
+        row.join(` ${border(BorderElement.side, settings)} `),
+        settings
+      )
     );
   });
   config.footer && lines.push(createBlockLine(config.footer, settings)[0]);
-  config.spaced && lines.push(createBlockLine(null, settings)[0]);
+  config.margin &&
+    config.marginBottom &&
+    lines.push(createBlockLine(null, settings)[0]);
   return lines;
 };
 

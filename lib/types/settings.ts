@@ -28,7 +28,9 @@ export interface LoggerSettings {
 export interface SettingsConfig {
   exclude?: string[];
   include?: string[];
-  spaced?: boolean;
+  margin?: boolean;
+  marginBottom?: boolean;
+  marginTop?: boolean;
   header?: string;
   footer?: string;
 }

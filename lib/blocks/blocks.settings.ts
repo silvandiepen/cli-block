@@ -4,6 +4,7 @@ import { bold, red } from "../util";
 import { useSettings, LoggerSettings, SettingsConfig } from "../settings";
 import { createBlockLine } from "./blocks.line";
 import { stylizeValue, spaces, logger } from "../util";
+import { useConfig } from "../settings/config";
 
 // Auto Settings display
 export const createBlockSettings = async (
@@ -11,16 +12,11 @@ export const createBlockSettings = async (
   settings: Partial<LoggerSettings> = {},
   config: SettingsConfig | null = null
 ): Promise<string[]> => {
-  let settingLines = [];
-  let lines: string[] = [];
+  settings = useSettings(settings);
+  config = useConfig(config);
 
-  config = {
-    exclude: [],
-    include: [],
-    spaced: true,
-    ...useSettings(settings),
-    ...config,
-  };
+  const settingLines = [];
+  const lines: string[] = [];
 
   await asyncForEach(Object.keys(obj), (value: string) => {
     let styledValue = stylizeValue(obj[value]);
@@ -42,13 +38,17 @@ export const createBlockSettings = async (
     }
   });
 
-  config.spaced && lines.push(createBlockLine(null, settings)[0]);
-  config.header && lines.push(createBlockLine([config.header], settings)[0])
+  config.margin &&
+    config.marginTop &&
+    lines.push(createBlockLine(null, settings)[0]);
+  config.header && lines.push(createBlockLine([config.header], settings)[0]);
   settingLines.forEach((line) => {
     lines.push(createBlockLine(line, settings)[0]);
   });
-  config.footer && lines.push(createBlockLine([config.footer], settings)[0])
-  config.spaced  && lines.push(createBlockLine(null, settings)[0]);
+  config.footer && lines.push(createBlockLine([config.footer], settings)[0]);
+  config.margin &&
+    config.marginBottom &&
+    lines.push(createBlockLine(null, settings)[0]);
 
   return lines;
 };
