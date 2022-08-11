@@ -18,11 +18,11 @@ export const createBlockFull = (
   config = { exclude: [], include: [], spaced: true, ...config };
 
   config.spaced && lines.push("\n");
-  lines = [...lines, ...createBlockHeader(config.title)];
+  lines = [...lines, ...createBlockHeader(config.header)];
   config.spaced && lines.push(createBlockLine(null, cfg)[0]);
   content.forEach((line) => lines.push(line));
   config.spaced && lines.push(createBlockLine(null, cfg)[0]);
-  lines = [...lines, ...createBlockFooter()];
+  lines = [...lines, ...createBlockFooter(config.footer)];
   config.spaced && lines.push("\n");
 
   return lines;

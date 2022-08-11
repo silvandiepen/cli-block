@@ -1,5 +1,5 @@
 import { bold } from "../util";
-import { LoggerSettings } from "../types";
+import { LoggerSettings, SettingsConfig } from "../types";
 import { border, BorderElement } from "../border";
 import { useSettings, getContentWidth } from "../settings";
 import { spacedText, stylizeValue, logger } from "../util";
@@ -7,7 +7,8 @@ import { createBlockLine } from "./blocks.line";
 
 export const createBlockTable = async (
   table: any[],
-  settings: Partial<LoggerSettings> = {}
+  settings: Partial<LoggerSettings> = {},
+  config: SettingsConfig | null = null
 ): Promise<string[]> => {
   const cfg = useSettings(settings);
 
@@ -46,21 +47,26 @@ export const createBlockTable = async (
     (table[1] = table[1].map((item) => (item = `${bold(item)}`)));
 
   let lines = [];
+  config.spaced && lines.push(createBlockLine(null, settings)[0]);
+  config.header && lines.push(createBlockLine(config.header, settings)[0]);
   table.forEach((row) => {
     lines.push(
       createBlockLine(row.join(` ${border(BorderElement.side, cfg)} `), cfg)
     );
   });
+  config.footer && lines.push(createBlockLine(config.footer, settings)[0]);
+  config.spaced && lines.push(createBlockLine(null, settings)[0]);
   return lines;
 };
 
 export const blockTable = async (
   table: any[],
-  settings: Partial<LoggerSettings> = {}
+  settings: Partial<LoggerSettings> = {},
+  config: SettingsConfig | null = null
 ): Promise<void> => {
   const cfg = useSettings(settings);
 
-  const lines = await createBlockTable(table, cfg);
+  const lines = await createBlockTable(table, cfg, config);
 
   lines.forEach((line) => {
     logger(line, cfg);

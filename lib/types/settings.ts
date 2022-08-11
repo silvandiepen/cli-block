@@ -29,5 +29,6 @@ export interface SettingsConfig {
   exclude?: string[];
   include?: string[];
   spaced?: boolean;
-  title?: string;
+  header?: string;
+  footer?: string;
 }

@@ -43,10 +43,12 @@ export const createBlockSettings = async (
   });
 
   config.spaced && lines.push(createBlockLine(null, settings)[0]);
+  config.header && lines.push(createBlockLine([config.header], settings)[0])
   settingLines.forEach((line) => {
     lines.push(createBlockLine(line, settings)[0]);
   });
-  config.spaced && lines.push(createBlockLine(null, settings)[0]);
+  config.footer && lines.push(createBlockLine([config.footer], settings)[0])
+  config.spaced  && lines.push(createBlockLine(null, settings)[0]);
 
   return lines;
 };

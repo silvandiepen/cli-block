@@ -154,7 +154,7 @@ const full = async () => {
   blockFull(
     `Fusce interdum blandit ligula, eu ornare tellus convallis ut. Praesent ut elit tempor, luctus urna ac, mattis est. Donec tincidunt sollicitudin eleifend. Donec eu rutrum arcu. Pellentesque lobortis ante libero, vel ultrices mi cursus at. Nullam et leo in justo lacinia blandit in eu quam. Donec magna lectus, posuere sed urna sit amet, venenatis vehicula libero. Donec sed sagittis elit. Suspendisse at dolor vel ipsum aliquet pulvinar sit amet accumsan sapien. Vivamus eget odio mi. Cras tempus vel sapien non viverra. Proin id placerat ipsum. In cursus nisi vel nulla bibendum finibus. Curabitur consequat tortor at tellus rutrum, vel rhoncus magna tempus. Quisque et nisl ac magna cursus aliquet. Donec eget luctus diam. Nulla et lectus lacinia, faucibus risus eget, eleifend neque. Aenean ut luctus est. Mauris dui libero, dapibus vel vehicula quis, convallis vitae neque. Nunc faucibus lacus urna, a accumsan nulla dapibus in. Duis suscipit augue sed magna efficitur, id imperdiet arcu gravida. Cras luctus, eros sed varius luctus, erat urna ullamcorper risus, non scelerisque felis velit luctus sem. Quisque arcu ipsum, vestibulum quis efficitur pretium, hendrerit ac eros. Curabitur at ligula sed mauris pretium euismod. Donec accumsan nisi quis sapien elementum consectetur.`,
     {},
-    { title: "Test" }
+    { header: "Test" }
   );
 
   blockFull(
