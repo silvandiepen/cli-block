@@ -19,21 +19,23 @@ export const createBlockLine = (
   if (msg !== null) {
     if (typeof msg == "string") msg = breakText(msg, getContentWidth(cfg));
 
-    msg.forEach((txt, i) => {
-      txt =
-        i == 0
-          ? `${cfg.prefix ? cfg.prefix + " " : ""}${txt}`
-          : `${cfg.prefix ? spaces(strWidth(cfg.prefix)) + " " : ""}${txt}`;
+    if (Array.isArray(msg)) {
+      msg.forEach((txt, i) => {
+        txt =
+          i == 0
+            ? `${cfg.prefix ? cfg.prefix + " " : ""}${txt}`
+            : `${cfg.prefix ? spaces(strWidth(cfg.prefix)) + " " : ""}${txt}`;
 
-      lines.push(
-        spaces(cfg.indentBlock) +
-          border(BorderElement.side, cfg) +
-          spaces(getPadding(cfg)) +
-          spacedText(getContentWidth(cfg), txt) +
-          spaces(getPadding(cfg)) +
-          border(BorderElement.side, cfg)
-      );
-    });
+        lines.push(
+          spaces(cfg.indentBlock) +
+            border(BorderElement.side, cfg) +
+            spaces(getPadding(cfg)) +
+            spacedText(getContentWidth(cfg), txt) +
+            spaces(getPadding(cfg)) +
+            border(BorderElement.side, cfg)
+        );
+      });
+    }
   } else {
     lines = [
       `${spaces(cfg.indentBlock)}${border(BorderElement.side, cfg)}${spaces(

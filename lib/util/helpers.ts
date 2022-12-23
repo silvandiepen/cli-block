@@ -19,7 +19,7 @@ export const objectToString = (obj: any) => {
 export const toStringValue = (value: any) => {
   if (typeof value == "string") return value;
   else if (typeof value == "number") return `${value}`;
-  else if (typeof value == "boolean") return `${value ? 'true' : 'false'}`;
+  else if (typeof value == "boolean") return `${value ? "true" : "false"}`;
   else if (value == null) return "";
   else if (typeof value == "object") return objectToString(value);
   else return value.join("");
