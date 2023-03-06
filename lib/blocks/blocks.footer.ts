@@ -23,13 +23,15 @@ export const createBlockFooter = (
         cfg
       )}${repeat(
         Math.floor(getFrameWidth(cfg) / 3),
-        border(BorderElement.endLine, cfg)
+        border(BorderElement.endLine, cfg),
+        true
       )}${centerText(
         bold(txt),
         getFrameWidth(cfg) - Math.floor(getFrameWidth(cfg) / 3) * 2
       )}${repeat(
         Math.floor(getFrameWidth(cfg) / 3),
-        `${border(BorderElement.endLine, cfg)}`
+        `${border(BorderElement.endLine, cfg)}`,
+        true
       )}${border(BorderElement.bottomEnd, cfg)}`
     );
   else
@@ -39,7 +41,8 @@ export const createBlockFooter = (
         cfg
       )}${repeat(
         getFrameWidth(cfg),
-        `${border(BorderElement.endLine, cfg)}`
+        `${border(BorderElement.endLine, cfg)}`,
+        true
       )}${border(BorderElement.bottomEnd, cfg)}`
     );
 

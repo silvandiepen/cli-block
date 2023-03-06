@@ -45,9 +45,9 @@ export const blockLoader = async (
 
     if (filled + unfilled !== width) unfilled = unfilled + 1;
 
-    const msg = `${repeat(filled, config.charFilled)}${repeat(
+    const msg = `${repeat(filled, config.charFilled, true)}${repeat(
       unfilled,
-      config.charUnfilled
+      config.charUnfilled, true
     )}`;
     return msg;
   };

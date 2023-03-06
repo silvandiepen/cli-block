@@ -25,22 +25,25 @@ export const createBlockMid = (
       cfg
     )}${repeat(
       Math.floor(getFrameWidth(cfg) / 3),
-      border(BorderElement.midLine, cfg), true
+      border(BorderElement.midLine, cfg),
+      true
     )}${centerText(
       bold(txt),
       getFrameWidth(cfg) - Math.floor(getFrameWidth(cfg) / 3) * 2
     )}${repeat(
       Math.floor(getFrameWidth(cfg) / 3),
-      `${border(BorderElement.midLine, settings)}`, true
+      `${border(BorderElement.midLine, settings)}`,
+      true
     )}${border(BorderElement.midEnd, settings)}`;
   else
     line += `${spaces(cfg.indentBlock)}${border(
       BorderElement.midStart,
       cfg
-    )}${repeat(getFrameWidth(cfg), border(BorderElement.midLine, cfg),true)}${border(
-      BorderElement.midEnd,
-      cfg
-    )}`;
+    )}${repeat(
+      getFrameWidth(cfg),
+      border(BorderElement.midLine, cfg),
+      true
+    )}${border(BorderElement.midEnd, cfg)}`;
 
   lines.push(line);
 

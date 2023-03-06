@@ -56,9 +56,10 @@ export const blockStepLoader = async (
     const filled = Math.round((width / 100) * filledPercentage);
     const unfilled = Math.round(width - filled);
 
-    const msg = `${repeat(filled, config.charFilled)}${repeat(
+    const msg = `${repeat(filled, config.charFilled, true)}${repeat(
       unfilled,
-      config.charUnfilled
+      config.charUnfilled,
+      true
     )}`;
     return msg;
   };
