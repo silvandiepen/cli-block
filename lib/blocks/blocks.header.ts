@@ -19,13 +19,15 @@ export const createBlockHeader = (
         settings
       )}${repeat(
         Math.floor(getFrameWidth(cfg) / 3),
-        border(BorderElement.startLine, settings)
+        border(BorderElement.startLine, settings),
+        true
       )}${centerText(
         bold(txt),
         getFrameWidth(cfg) - Math.floor(getFrameWidth(cfg) / 3) * 2
       )}${repeat(
         Math.floor(getFrameWidth(cfg) / 3),
-        border(BorderElement.startLine, cfg)
+        border(BorderElement.startLine, cfg),
+        true
       )}${border(BorderElement.topEnd, cfg)}`,
     ];
   } else {
@@ -35,7 +37,8 @@ export const createBlockHeader = (
         settings
       )}${repeat(
         getFrameWidth(cfg),
-        border(BorderElement.startLine, cfg)
+        border(BorderElement.startLine, cfg),
+        true
       )}${border(BorderElement.topEnd, cfg)}`,
     ];
   }

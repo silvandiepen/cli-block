@@ -4,7 +4,8 @@ import { toRoundNumber } from "@sil/tools";
 
 export const strWidth = stringWidth;
 
-import { red, blue, green, italic, yellow } from "../util";
+import { red, blue, green, italic, yellow ,color } from "../util";
+import { COLOR, isCOLOR, toHex } from "@sil/color";
 
 export const objectToString = (obj: any) => {
   let str = "";
@@ -63,7 +64,12 @@ export const stylizeValue = (
   if (stringValue == "true") return `${green("True")}`;
   else if (stringValue == "false") return `${red("False")}`;
   else if (stringValue.includes("/")) return `${blue().italic(stringValue)}`;
-  else return stringValue;
+
+  // If the value is a color
+  if (isCOLOR(value)) {
+    const hexColor = toHex(value as COLOR);
+    return `${color(`▶`,hexColor)} ${stringValue}`;
+     } else return stringValue;
 };
 
 export const centerText = (value: string, num: number) => {

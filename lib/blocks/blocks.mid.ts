@@ -18,26 +18,31 @@ export const createBlockMid = (
 
   cfg.autoSpace && lines.push(createBlockLine(null, cfg)[0]);
 
+  let line = ``;
   if (txt)
-    lines.push(
-      `${spaces(cfg.indentBlock)}${border(BorderElement.midStart, cfg)}${repeat(
-        Math.floor(getFrameWidth(cfg) / 3),
-        border(BorderElement.midLine, cfg)
-      )}${centerText(
-        bold(txt),
-        getFrameWidth(cfg) - Math.floor(getFrameWidth(cfg) / 3) * 2
-      )}${repeat(
-        Math.floor(getFrameWidth(cfg) / 3),
-        `${border(BorderElement.midLine, settings)}`
-      )}${border(BorderElement.midEnd, settings)}`
-    );
+    line += `${spaces(cfg.indentBlock)}${border(
+      BorderElement.midStart,
+      cfg
+    )}${repeat(
+      Math.floor(getFrameWidth(cfg) / 3),
+      border(BorderElement.midLine, cfg), true
+    )}${centerText(
+      bold(txt),
+      getFrameWidth(cfg) - Math.floor(getFrameWidth(cfg) / 3) * 2
+    )}${repeat(
+      Math.floor(getFrameWidth(cfg) / 3),
+      `${border(BorderElement.midLine, settings)}`, true
+    )}${border(BorderElement.midEnd, settings)}`;
   else
-    lines.push(
-      `${spaces(cfg.indentBlock)}${border(BorderElement.midStart, cfg)}${repeat(
-        getFrameWidth(cfg),
-        border(BorderElement.midLine, cfg)
-      )}${border(BorderElement.midEnd, cfg)}`
-    );
+    line += `${spaces(cfg.indentBlock)}${border(
+      BorderElement.midStart,
+      cfg
+    )}${repeat(getFrameWidth(cfg), border(BorderElement.midLine, cfg),true)}${border(
+      BorderElement.midEnd,
+      cfg
+    )}`;
+
+  lines.push(line);
 
   cfg.autoSpace && lines.push(createBlockLine(null, cfg)[0]);
 
