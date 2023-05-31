@@ -4,7 +4,7 @@ import { toRoundNumber } from "@sil/tools";
 
 export const strWidth = stringWidth;
 
-import { red, blue, green, italic, yellow ,color } from "../util";
+import { red, blue, green, italic, yellow, color } from "../util";
 import { COLOR, isCOLOR, toHex } from "@sil/color";
 
 export const objectToString = (obj: any) => {
@@ -42,34 +42,98 @@ export const spacedText = (num: number, value: string) => {
   return `${value} ${spaces(num, stringWidth(toStringValue(value)) + 1)}`;
 };
 
-export const stylizeValue = (
-  value: string | number | boolean | string[] | object
-) => {
-  let stringValue = "";
+const ValueType = {
+  STRING: "string",
+  NUMBER: "number",
+  COLOR: "color",
+  ARRAY: "array",
+  OBJECT: "object",
+  BOOLEAN: "boolean",
+  PATH: "path",
+  UNDEFINED: "undefined",
+  NULL: "null",
+};
+type ValueType = (typeof ValueType)[keyof typeof ValueType];
 
-  // Empty string
-  if (value == null) stringValue = `${italic("null")}`;
-  // If there is not value
-  else if (typeof value !== "boolean" && !value) stringValue = "";
-  // If the value is object of non-strings
-  else if (typeof value === "object" && typeof value[0] !== "string") {
-    stringValue = Object.keys(value).join(", ");
+export const isUndefined = (value: any) =>
+  (!value || value == undefined || value == null) && value !== 0;
+export const isString = (value: any) => typeof value == "string";
+
+export const isNumber = (value: any) =>
+  typeof value == "number" &&
+  (value == 0 || ((!isString(value) || !isArray(value)) && !isNaN(value)));
+
+export const isNumeric = (value: any) =>
+  isNumber(value) || `${value}` === `${parseFloat(value)}`;
+export const isArray = (value: any) =>
+  Array.isArray(value) && value instanceof Array;
+export const isObject = (value: any) =>
+  typeof value == "object" && !isArray(value) && !isUndefined(value);
+export const isColor = (value: any) => isCOLOR(value);
+export const isBoolean = (value: any) => typeof value == "boolean";
+export const isBooleanish = (value: any) =>
+  isBoolean(value) ||
+  (isString(value) &&
+    (value.toLowerCase() === "true" || value.toLowerCase() === "false"));
+export const isNull = (value: any) =>
+  (value == null || value == "null") && value !== undefined && value !== "";
+export const isPath = (value: any) => isString(value) && value.includes("/");
+export const isTrue = (value: any) => {
+  if (isBoolean(value)) return !!value;
+  if (isBooleanish(value) && value.toLowerCase() == "true") return true;
+  return false;
+};
+
+export const defineValueType = (value: any): ValueType => {
+  if (isNull(value)) return ValueType.NULL;
+
+  if (isUndefined(value)) return ValueType.UNDEFINED;
+
+  if (isNumeric(value)) return ValueType.NUMBER;
+
+  if (isArray(value)) return ValueType.ARRAY;
+
+  if (isObject(value)) return ValueType.OBJECT;
+
+  if (isBooleanish(value)) return ValueType.BOOLEAN;
+
+  if (isPath(value)) return ValueType.PATH;
+
+  if (isColor(value)) return ValueType.COLOR;
+
+  if (isString(value)) return ValueType.STRING;
+};
+
+export const stylizeValue = (value: any) => {
+  switch (defineValueType(value)) {
+    case ValueType.NULL:
+      return `${italic("null")}`;
+
+    case ValueType.UNDEFINED:
+      return ``;
+
+    case ValueType.ARRAY:
+      return value.join(", ");
+
+    case ValueType.OBJECT:
+      return Object.keys(value).join(", ");
+
+    case ValueType.NUMBER:
+      return `${yellow(value)}`;
+
+    case ValueType.BOOLEAN:
+      return isTrue(value) ? `${green("True")}` : `${red("False")}`;
+
+    case ValueType.PATH:
+      return `${blue().italic(value)}`;
+
+    case ValueType.COLOR:
+      return `${color(`▶`, toHex(value as COLOR))} ${value}`;
+
+    default:
+    case ValueType.STRING:
+      return value;
   }
-  // If the value is an array of strings
-  else if (Array.isArray(value)) stringValue = value.join(", ");
-  else stringValue = value.toString();
-
-  if (typeof value == "number") stringValue = `${yellow(value)}`;
-
-  if (stringValue == "true") return `${green("True")}`;
-  else if (stringValue == "false") return `${red("False")}`;
-  else if (stringValue.includes("/")) return `${blue().italic(stringValue)}`;
-
-  // If the value is a color
-  if (isCOLOR(value)) {
-    const hexColor = toHex(value as COLOR);
-    return `${color(`▶`,hexColor)} ${stringValue}`;
-     } else return stringValue;
 };
 
 export const centerText = (value: string, num: number) => {

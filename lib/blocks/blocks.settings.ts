@@ -6,6 +6,24 @@ import { createBlockLine } from "./blocks.line";
 import { stylizeValue, spaces, logger } from "../util";
 import { useConfig } from "../settings/config";
 
+const isExcluded = (exclude: string[], value: string) => {
+  if (exclude.length == 0) return false;
+
+  let excluded = false;
+
+  exclude.forEach((exclude) => {
+    if (
+      (exclude.indexOf("*") > -1 &&
+        value.indexOf(exclude.replace("*", "")) > -1) ||
+      exclude == value
+    ) {
+      excluded = true;
+    }
+  });
+
+  return excluded;
+};
+
 // Auto Settings display
 export const createBlockSettings = async (
   obj: any,
@@ -18,23 +36,19 @@ export const createBlockSettings = async (
   const settingLines = [];
   const lines: string[] = [];
 
-  await asyncForEach(Object.keys(obj), (value: string) => {
-    let styledValue = stylizeValue(obj[value]);
+  await asyncForEach(Object.keys(obj), (key: string) => {
+    let value = stylizeValue(obj[key]);
     let error: boolean = false;
 
-    ["src", "dest", "template"].includes(value) &&
-      !obj[value] &&
-      (error = true);
+    ["src", "dest", "template"].includes(key) && !obj[key] && (error = true);
 
-    if (error) styledValue = `${red("×")} ${styledValue}`;
+    if (error) value = `${red("×")} ${value}`;
 
-    if (!config.exclude.includes(value)) {
-      if (
-        (config.include.length > 0 && config.include.includes(value)) ||
-        !config.include.length
-      ) {
-        settingLines.push(`${bold(value)}${spaces(20, value)}${styledValue}`);
-      }
+    if (config.include.length > 0) {
+      config.include.includes(key) &&
+        settingLines.push(`${bold(key)}${spaces(20, key)}${value}`);
+    } else if (!isExcluded(config.exclude, key)) {
+      settingLines.push(`${bold(key)}${spaces(20, key)}${value}`);
     }
   });
 
