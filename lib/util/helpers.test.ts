@@ -12,6 +12,7 @@ import {
   isBooleanish,
   isPath,
   isColor,
+  truncateText,
 } from "./helpers";
 
 test("breakText", () => {
@@ -159,10 +160,10 @@ describe("isFunctions", () => {
     expect(isBoolean(0)).toBe(false);
     expect(isBoolean(false)).toBe(true);
     expect(isBoolean(true)).toBe(true);
-    expect(isBoolean('true')).toBe(false);
-    expect(isBoolean('false')).toBe(false);
-    expect(isBoolean('True')).toBe(false);
-    expect(isBoolean('Talse')).toBe(false);
+    expect(isBoolean("true")).toBe(false);
+    expect(isBoolean("false")).toBe(false);
+    expect(isBoolean("True")).toBe(false);
+    expect(isBoolean("Talse")).toBe(false);
     expect(isBoolean("0")).toBe(false);
     expect(isBoolean("a")).toBe(false);
     expect(isBoolean("#000000")).toBe(false);
@@ -180,10 +181,10 @@ describe("isFunctions", () => {
     expect(isBooleanish(0)).toBe(false);
     expect(isBooleanish(false)).toBe(true);
     expect(isBooleanish(true)).toBe(true);
-    expect(isBooleanish('true')).toBe(true);
-    expect(isBooleanish('false')).toBe(true);
-    expect(isBooleanish('True')).toBe(true);
-    expect(isBooleanish('False')).toBe(true);
+    expect(isBooleanish("true")).toBe(true);
+    expect(isBooleanish("false")).toBe(true);
+    expect(isBooleanish("True")).toBe(true);
+    expect(isBooleanish("False")).toBe(true);
     expect(isBooleanish("0")).toBe(false);
     expect(isBooleanish("a")).toBe(false);
     expect(isBooleanish("#000000")).toBe(false);
@@ -210,3 +211,32 @@ describe("isFunctions", () => {
   });
 });
 
+// export const truncateText = (value: string, width: number) => {
+//   if (typeof value !== "string") return value;
+
+//   if (stringWidth(value) > width) {
+//     let words = value.split(" ");
+//     let sentence = "";
+//     words.forEach((word, i) => {
+//       if (stringWidth(sentence + " " + word) < width) {
+//         sentence = sentence + " " + word;
+//       }
+//     });
+//     return sentence;
+//   } else return value;
+// }
+
+describe("truncateText", () => {
+  it("Should return the same string if it is shorter than the width", () => {
+    expect(truncateText("test", 10)).toBe("test");
+  });
+  it("Should return the same string if it is equal to the width", () => {
+    expect(truncateText("test", 4)).toBe("test");
+  });
+  it("Should return a truncated string when it is longer than the width", () => {
+    expect(truncateText("test1 test2 test3", 10)).toBe("test1 test");
+  });
+  it("Should return a truncated string when it is longer than the width, with affix", () => {
+    expect(truncateText("test1 test2 test3", 10, "...")).toBe("test1 t...");
+  });
+});

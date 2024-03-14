@@ -147,6 +147,15 @@ export const centerText = (value: string, num: number) => {
   return values.join("");
 };
 
+export const truncateText = (value: string, width: number, affix:string= "") => {
+  if (typeof value !== "string") return value;
+
+  if (stringWidth(value) > width) {
+    let valueArray = value.split("");
+    return valueArray.slice(0, width - affix.length).join("") + affix;
+  } else return value;
+};
+
 export const breakText = (value: string, width: number) => {
   if (typeof value !== "string") return value;
 
