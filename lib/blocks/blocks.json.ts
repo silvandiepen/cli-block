@@ -3,17 +3,24 @@ import { highlight } from "cli-highlight";
 import { logger } from "../util";
 import { createBlockLine } from "./blocks.line";
 
-export const createBlockJson = async (
+export const createBlockJsonLines = async(
   obj: Object,
-  settings: Partial<LoggerSettings> = {}
 ): Promise<string[]> => {
-  const cfg = useSettings(settings);
-
   const text = highlight(JSON.stringify(obj, null, "\t"), {
     language: "json",
     ignoreIllegals: true,
   });
   const JSONlines = text.split("\n");
+  return JSONlines;
+}
+
+export const createBlockJson = async (
+  obj: Object,
+  settings: Partial<LoggerSettings> = {}
+): Promise<string[]> => {
+
+  const cfg = useSettings(settings);
+  const JSONlines = await createBlockJsonLines(obj);
 
   let lines: string[] = [];
 
