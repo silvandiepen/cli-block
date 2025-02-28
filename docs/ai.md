@@ -35,7 +35,34 @@ CLI-Block is a TypeScript/JavaScript package designed to create visually appeali
    ```
 
 2. **Special Blocks**:
-   - `blockLoader`: Dynamic loading indicator
+   - `blockLoader`: Animated progress bar with customizable options:
+     ```typescript
+     interface LoaderOptions {
+       message?: string;      // Format: "[percentage] [loader]" (default)
+       increment?: number;    // Progress increment per step (default: 1)
+       width?: string|number; // Bar width, e.g., "100%" or number (default: "100%")
+       start?: number;        // Starting percentage (default: 0)
+       end?: number;         // Ending percentage (default: 100)
+       interval?: number;    // Update interval in ms (default: 25)
+       charFilled?: string;  // Character for filled portion (default: "▒")
+       charUnfilled?: string;// Character for unfilled portion (default: "░")
+     }
+
+     // Basic usage
+     await blockLoader({ message: "Processing..." });
+
+     // Custom configuration
+     await blockLoader({
+       message: "[percentage] Loading [loader]",
+       width: "80%",
+       interval: 50,
+       charFilled: "█",
+       charUnfilled: "░"
+     });
+
+     // Note: blockLoader is async and doesn't work with console.log
+     // Use process.stdout (default) for proper functionality
+     ```
    - `blockCounter`: Numerical progress display
    - `blockJson`: JSON data formatting
    - `blockTable`: Tabular data display
@@ -71,16 +98,61 @@ log.blockFooter();
 
 ### Progress Tracking Pattern
 ```typescript
-import { blockLoader, blockCounter } from "cli-block";
+// Basic usage - Simple progress loader
+await blockLoader();
 
-// For continuous operations
-blockLoader("Processing", true); // Start loader
-// ... async operation
-blockLoader("Processing", false); // Stop loader
+// Custom loader with advanced configuration
+await blockLoader({
+  message: "[loader] [percentage] to go",  // Custom message format
+  increment: 2,                           // Increment by 2% each step
+  width: "50",                           // Set width to 50 characters
+  start: 0,                              // Start from 0%
+  end: 100,                              // End at 100%
+  interval: 50,                          // Update every 50ms
+  charFilled: "╱",                       // Custom filled character
+  charUnfilled: "╲"                      // Custom unfilled character
+});
 
-// For countable operations
-blockCounter("Items", currentCount, totalCount);
+// For step-by-step progress tracking
+let i = 0;
+const loaderInterval = setInterval(async () => {
+  await blockStepLoader({
+    message: "[loader] [percentage] to go",
+    width: "50",
+    start: 0,
+    end: 100,
+    step: i
+  });
+  i++;
+
+  if (i - 1 == 100) {
+    clearInterval(loaderInterval);
+  }
+}, 25);
+
+// For countable operations with custom messages
+await blockCounter({
+  messages: [
+    "Starting with [count]",
+    "And this is [count]",
+    "still [count] to go",
+    "now about [count]",
+    "what a joy..:)",
+    "finally [count]"
+  ],
+  start: 0,
+  end: 5,
+  increment: 1,
+  interval: 250
+});
 ```
+```
+
+The loader provides dynamic progress visualization with customizable:
+- Message format with [loader] and [percentage] placeholders
+- Progress bar width and update interval
+- Custom characters for filled/unfilled portions
+- Start/end percentages and increment steps
 
 ### Data Display Pattern
 ```typescript
