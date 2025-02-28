@@ -6,8 +6,28 @@ tags: documentation,custom
 
 # Customizing
 
-There are few things which can be easily customized. The border type and the color of the borders.
-To give the borders another color you pass an object to the function with the settings;
+Cli-block offers extensive customization options to match your application's visual style. You can customize the border style, colors, and layout of your CLI blocks.
+
+## Global Settings
+
+You can set global settings that apply to all blocks in your application:
+
+```typescript
+import * as log from "cli-block";
+
+const globalSettings = {
+  borderType: "double",
+  borderColor: "blue",
+  frameWidth: 80
+};
+
+// Apply settings to all subsequent blocks
+log.start("My Application", globalSettings);
+```
+
+## Per-Block Customization
+
+You can also customize individual blocks by passing settings as the second argument:
 
 ```js
 const settings = {
@@ -46,7 +66,7 @@ Double:
 ╚════╝
 ```
 
-__Usage__ 
+__Usage__
 ```js
 {
   borderType: 'single' // BorderType.single

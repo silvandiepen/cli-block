@@ -5,7 +5,62 @@ icon: /assets/icon_blocks.svg
 
 # Blocks
 
-An overview of all the block types available in cli-block.
+An overview of all the block types available in cli-block. Each block type serves a specific purpose in creating visually appealing command-line interfaces.
+
+## Getting Started
+
+### Installation
+
+```bash
+npm install cli-block
+# or
+yarn add cli-block
+```
+
+### Basic Usage
+
+```typescript
+import * as log from "cli-block";
+
+// Initialize your CLI application
+log.start("My CLI App");
+
+// Display information in blocks
+log.blockHeader("Configuration");
+log.blockLine("Environment: Production");
+log.blockLine("Version: 1.0.0");
+
+// Show progress
+log.blockMid("Processing");
+log.blockLoader("Updating dependencies", true);
+
+// Conclude the output
+log.blockFooter("Complete");
+```
+
+### TypeScript Support
+
+Cli-block is written in TypeScript and provides full type definitions. Here are the main types you'll work with:
+
+```typescript
+interface BlockSettings {
+  borderType?: 'single' | 'double' | 'fat';
+  borderColor?: 'dim' | 'red' | 'yellow' | 'green' | 'blue' | 'magenta' | 'black' | 'white' | 'gray';
+  frameWidth?: number;
+}
+
+type BlockContent = string | number | boolean | null | undefined;
+```
+
+## Overview
+
+Cli-block provides several types of blocks that can be combined to create rich terminal outputs:
+- Basic blocks (Start, Header, Line, Footer)
+- Structural blocks (Mid)
+- Data display blocks (Row Line, Table, JSON)
+- Progress blocks (Loader, Counter, Step Loader)
+
+All blocks can be customized with different border styles and colors.
 
 ## Start
 
